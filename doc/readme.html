@@ -35,7 +35,7 @@
       <TABLE cellpadding="0" cellspacing="0" border="0" width="80%">
         <TBODY>
           <TR>
-            <TD valign="top"><FONT size="+1"><A href="#gaiyou">● 概要/初代との違い</A></FONT><BR>
+            <TD valign="top"><FONT size="+1"><A href="#gaiyou">● 概要</A></FONT><BR>
             <FONT size="+1"><A href="#kankyou">○ 動作環境</A></FONT><BR>
             <FONT size="+1"><A href="#dounyuu">● 導入</A></FONT><BR>
             <FONT size="+1"><A href="#settei">○ プログラム側の設定・使用法</A></FONT><BR>
@@ -86,24 +86,6 @@
       「アクセスログは他の方法で記録するから、カウントだけしてくれればいいんだ」<BR>
       「そもそもアクセスログなんて要らない。　純粋にカウンタだけが欲しい」<BR>
       という方もおられるでしょう。　そんな方に使っていただきたく、作成いたしました。</TD>
-    </TR>
-    <TR>
-      <TD bgcolor="#ffc6c7"><B><FONT size="+1">■初代「ぷちカウンタ Ver. 1.0」との違い(設計思想の違い)</FONT></B></TD>
-    </TR>
-    <TR>
-      <TD bgcolor="#ffdfe0">初代は「カウンタとして必要最低限の機能＋多少の味付け」を重点とし、極力軽い物を、という狙いで作られています。<BR>
-      対して「ぷちカウンタ」ではロギングできる項目を更に追加し、efStat
-      とほぼ同等の機能になっています。<BR>
-      efStat のカウンタ機能だけを抜き出した物になった、という捉え方をして下さると分かりやすいと思います。<BR>
-      <BR>
-      多機能になることは喜ばしいことですが、弊害も生まれてくるでしょう。<BR>
-      一つは、動作が重くなること。　(…とは言ってもコンマ下二桁の世界だと思いますが)<BR>
-      もう一つは、項目が増えすぎて解析結果の視認性が悪くなること。<BR>
-      この辺は使い手の皆さんの好みの問題だと思いますので、お好きな方を選んでお使い下さい。<BR>
-      <BR>
-      呼び出し方は初代と全く変わらず、HTML側の移行はスムーズに行えますが、ログの互換性が全くありません。<BR>
-      今まで初代「ぷちカウンタ」を使っていた方は、新たにログを作り直していただきますよう、お願いいたします。<BR>
-      (その苦労に見合うくらいの物が今回完成したと思っているつもりではありますが…)</TD>
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0"><B><FONT size="+1"><U>ぷちカウンタの特徴</U></FONT></B>
@@ -202,7 +184,9 @@
       　　　FreeBSD 2.2.7R + Apache + jperl5.004_04-980303
       / perl4.0 Rev.1.7.2.2 Patch level 36<BR>
       にて行いました。)<BR>
+      （<b>2016/08/12追記：</b>「エックスサーバ(Perl5.8.8)」でも動作しています。）<br>
       <BR>
+
       <B>CGI 専用です。</B>　CGI が使用可能になっているか、プロバイダ側サーバに
       Perl がインストールされているかをご確認下さい。</TD>
     </TR>
@@ -241,8 +225,7 @@
           </TR>
           <TR>
             <TD>gifcat.pl</TD>
-            <TD>GIF 画像連結ライブラリ<BR>
-            &copy;s-hasei</TD>
+            <TD>GIF 画像連結ライブラリ</TD>
           </TR>
           <TR>
             <TD>0.gif / 1.gif / e.gif / b.gif</TD>
@@ -450,7 +433,7 @@
       と同じディレクトリに置かなければなりません。<BR>
       特別な事情がなければ変更せずにお使い下さい。<B><BR>
       </B><BR>
-      <A href="#tips_nyuusyu">Digit Maniaなどのサイトからカウンタのイメージファイルをダウンロード</A>してきて解凍すると、フォント名の付いたディレクトリが出来るはずです。<BR>
+      <A href="#tips_nyuusyu">カウンタ用画像配布サイト</A>からカウンタのイメージファイルをダウンロードしてきて解凍すると、フォント名の付いたディレクトリが出来るはずです。<BR>
       そのディレクトリをそのままこの、イメージ格納用ディレクトリ(何も変更していないなら
         image )の中にコピーして下さい。　そうしないと上手く動作しません。<BR>
       <BLOCKQUOTE><B>＜例＞</B><BR>
@@ -650,7 +633,7 @@
       alt=&quot;総アクセス数&quot; width=&quot;60&quot;
       height=&quot;16&quot; border=&quot;0&quot;&gt;</BLOCKQUOTE>
       という感じのタグを埋め込みます。<BR>
-      詳しくは <A href="sample.html">sample.html</A> のHTMLソースを見て下さい。</TD>
+      詳しくは <A href="../sample.html">sample.html</A> のHTMLソースを見て下さい。</TD>
     </TR>
   </TBODY>
 </TABLE>
@@ -896,8 +879,8 @@
               <LI>gifcat.pl が壊れている
               <OL>
                 <LI>gifcat.pl をバイナリモードで送っていませんか？
-                <LI>色々試したのにやっぱりおかしい、という場合は<BR>
-                <A href="http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt">http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt</A><BR>
+                <LI>色々試したのにやっぱりおかしい、という場合は
+                <A href="http://www.tohoho-web.com/wwwsoft.htm">gifcat.pl配布元</A>
                 にて、ダウンロードし直して下さい。
               </OL>
               
@@ -937,10 +920,9 @@
       </UL>
       <BR>
       <B>どーしてもダメ。</B><BR>
-      極力頑張って下さい(⌒ω⌒；　大概は設置した人のミスです。<BR>
-      どうしても駄目な場合は、<B>掲示板にて</B>ご報告下さい(質問メールは一切受け付けていません)。<BR>
-      その前に、<A href="http://tech.millto.net/~fuka/tips/how2check.html">CGI/SSI が上手く動かない場合の対処法(汎用)
-      </A>を読むのも忘れないで下さいね。</TD>
+      極力頑張って下さい(⌒ω⌒；<BR>
+      どうしても駄目な場合は、掲示板にてご報告下さい(質問メールは一切受け付けていません)。<BR>
+      </TD>
     </TR>
   </TBODY>
 </TABLE>
@@ -958,30 +940,7 @@
       <TD bgcolor="#ffdfe0">「ぷちカウンタ」ではカウンタの表示の為にカウンタ用画像を必要とします。<BR>
       一応サンプルの画像が同梱されていますが、気に入らない人は自分のサイトのデザインに合う物を自力で別途入手して下さい。<BR>
       一緒に入れておきたいのは山々なんですが、カウンタ用の画像にはそれぞれの作者サンの著作権があるので勝手に入れちゃいけないんです。<BR>
-      <BR>
-      カウンタ用の画像ファイルはココで入手すると良いでしょう。
-      <CENTER>
-      <TABLE border="1" cellspacing="0" bgcolor="#ffffff">
-        <TBODY>
-          <TR>
-            <TD><B>ここ掘れ！</B></TD>
-            <TD><A href="http://www.kiwi-us.com/~hagi/digit/index-j.html">http://www.kiwi-us.com/~hagi/digit/index-j.html</A></TD>
-          </TR>
-          <TR>
-            <TD><B>Digit Mania</B></TD>
-            <TD><A href="http://www.digitmania.holowww.com/">http://www.digitmania.holowww.com/</A></TD>
-          </TR>
-          <TR>
-            <TD><B>なまらファクトリー内<BR>
-            カウンター数字コーナー</B></TD>
-            <TD><A href="http://www10.big.or.jp/~gayou/nmr/nmrfacn/nmrfacn.html">http://www10.big.or.jp/~gayou/nmr/nmrfacn/nmrfacn.html</A></TD>
-          </TR>
-        </TBODY>
-      </TABLE>
-      </CENTER>
-      特に、なまらファクトリーのフォントは可愛くて実用性があってお奨め。<BR>
-      なお、私のサイトにもユーザさんに寄贈していただいたフォントがいくつか用意してあります。<BR>
-      これらは使われた実績がありますので、確実です。</TD>
+      </TD>
     </TR>
   </TBODY>
 </TABLE>
@@ -1003,8 +962,7 @@
       <UL>
         <LI>カウンタ用画像にアニメGIFは使用できません。
         <LI>アニメGIF対応のブラウザでなければ、最初の画像しか表示されません。
-        <LI>縦幅、横幅の異なるGIFファイルは使用できません。<BR>
-        (※gifcat.pl の1.55版より横幅の異なるGIFも連結できるようになりましたが、この可能性も疑って下さい)
+        <LI>縦幅の異なるGIFファイルは使用できません。<BR>
         <LI>全てのGIFファイルはパレットを統一させて下さい。<BR>
         一つでもパレットが違うと正常に表示されません。<BR>
         <A href="http://www.digitalpad.co.jp/~takechin/">Susie (by たけちん氏)</A> で、作ったファイルを連結させてみて、色が化けたりしないか試してみる方法が一番手軽でしょう。
@@ -1154,11 +1112,10 @@
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0">
-      <A href="http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt">GIF画像を連結するライブラリ gifcat.pl</A> は s-hasei 氏に著作権があります。<BR>
-      <BR>
-      これらの有用なプログラムを開発して下さった方々に深く感謝いたします。<BR>
-      また、s-hasei 氏の<A href="http://wakusei.cplaza.ne.jp/twn/">「とほほのWWW入門」</A>、ドッシー秋山氏/キャメル桜田氏共著の<A href="http://p4room.mda.or.jp/">「すぐに使える Perl スクリプト CGI &amp;
-      SSI 快適活用ライブラリ」</A>は制作の上で大変参考になりました。　ありがとうございます。</TD>
+      GIF画像を連結するライブラリ <A href="http://www.tohoho-web.com/wwwsoft.htm">gifcat.pl</A> は 杜甫々 氏に著作権があります。<BR>
+      また、杜甫々 氏の<A href="http://www.tohoho-web.com/">「とほほのWWW入門」</A>、ドッシー秋山氏/キャメル桜田氏共著の<A href="http://p4room.mda.or.jp/">「すぐに使える Perl スクリプト CGI &amp;
+      SSI 快適活用ライブラリ」</A>は制作の上で大変参考になりました。<br>
+      ありがとうございます。</TD>
     </TR>
   </TBODY>
 </TABLE>
@@ -1189,7 +1146,9 @@
 </TABLE>
 </CENTER>
 <HR>
-<DIV align="right">&copy;2000 不可思議絵の具<BR>
-(<A href="http://yugen.main.jp/">http://yugen.main.jp/</A>)</DIV>
+<DIV align="right">
+	&copy;2000, 2016 不可思議絵の具
+	(<A href="http://ygkb.jp/">http://ygkb.jp/</A>)
+</DIV>
 </BODY>
 </HTML>

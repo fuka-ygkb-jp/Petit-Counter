@@ -1,7 +1,7 @@
 #!/usr/local/bin/perl
 ;#+------------------------------------------------------------------------
-;#|Petit-Stat (ぷちカウンタ用アドイン：ぷちすたっと)             2000/06/07
-;#|(C)2000 不可思議絵の具(http://yugen.main.jp/)
+;#|Petit-Stat (ぷちカウンタ用アドイン：ぷちすたっと)             2016/08/12
+;#|(C)2000, 2016 不可思議絵の具(http://ygkb.jp/)
 ;#+------------------------------------------------------------------------
 
 ### 初期設定
@@ -295,5 +295,5 @@ END
 
 ;### HTML しっぽの部分
 sub html_tail {
-	print "\n<HR>\n<DIV align=right><A href=\"http://yugen.main.jp/\">[Petit-Counter $ver] / &copy;2000 Enogu Fukashigi\@YugenKoubou</A></DIV>\n</BODY>\n</HTML>\n";
+	print "\n<HR>\n<DIV align=right><A href=\"http://ygkb.jp/\">[Petit-Counter $ver] / &copy;2000 Enogu Fukashigi\@YugenKoubou</A></DIV>\n</BODY>\n</HTML>\n";
 }

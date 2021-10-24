@@ -1,8 +1,8 @@
 ;# ====================================================================
 ;#
-;# gifcat.pl: GIFファイル連結ライブラリ Ver1.55
+;# gifcat.pl: GIFファイル連結ライブラリ Ver1.61
 ;#
-;# Copyright (c) 1997,2000 http://wakusei.cplaza.ne.jp/twn/
+;# Copyright (c) 1997,2002 http://tohoho.wakusei.ne.jp/
 ;#
 ;# 著作権は放棄しませんが、自由に使用・改造・再配布可能です。
 ;#
@@ -23,7 +23,7 @@
 ;#    高さの異なるGIFファイルは連結できません。
 ;#
 ;# 最新版入手先
-;#    http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt
+;#    http://tohoho.wakusei.ne.jp/wwwsoft.htm
 ;#
 ;# 更新履歴:
 ;#    1997.05.03 初版。
@@ -41,15 +41,18 @@
 ;#    2000.05.21 Ver1.53 幅の異なるGIFの連結に対応
 ;#    2000.06.04 Ver1.54 perl -wcのwarning対応
 ;#    2000.06.04 Ver1.55 インタレースGIF部のコードミスを修正。
+;#    2000.09.17 Ver1.56 連続呼び出しの際のバグ修正
+;#    2000.11.28 Ver1.57 インタレースGIF部のコードミスを修正。
+;#    2001.09.14 Ver1.58 gifcatを連続で呼び出す際の不具合修正。
+;#    2001.10.04 Ver1.59 同上。
+;#    2001.11.25 Ver1.60 gifprintの不具合修正。
+;#    2002.06.10 Ver1.61 Netscape 6.*で1桁目が表示されない問題に対応。
 ;#
 ;# ====================================================================
 
 package gifcat;
 
-$pflag = 0;
-$LeftPos = 0;
-$logicalScreenWidth = 0;
-$logicalScreenHeight = 0;
+$pflag = 0;					# print flag
 
 ;# =====================================================
 ;# gifcat'gifprint() - print out GIF diagnostics.
@@ -57,20 +60,25 @@ $logicalScreenHeight = 0;
 sub gifprint {
 	$pflag = 1;
 	&gifcat(@_);
+	$pflag = 0;
 }
 
 ;# =====================================================
 ;# gifcat'gifcat() - get a concatenated GIF image.
 ;# =====================================================
 sub gifcat {
-	$Gif = 0;
-	$useLocalColorTable = 0;
 	@files = @_;
-	for $file (@files) {
+	$Gif = 0;
+	$leftpos = 0;
+	$logicalScreenWidth = 0;
+	$logicalScreenHeight = 0;
+	$useLocalColorTable = 0;
+	
+	foreach $file (@files) {
 		$size = -s $file;
-		open(IN, "$file");
+		open(IN, "$file") || return("ERROR");
 		binmode(IN);
-		sysread(IN, $buf, $size);
+		read(IN, $buf, $size) || return("ERROR");
 		close(IN);
 
 		$cnt = 0;
@@ -109,7 +117,7 @@ sub gifcat {
 		return;
 	}
 
-	$GifImage .= "GIF89a";
+	$GifImage = "GIF89a";
 	$GifImage .= pack("C", $logicalScreenWidth & 0x00ff);
 	$GifImage .= pack("C", ($logicalScreenWidth & 0xff00) >> 8);
 	$GifImage .= pack("C", $logicalScreenHeight & 0x00ff);
@@ -123,33 +131,34 @@ sub gifcat {
 	if ($useLocalColorTable == 0) {
 		$GifImage .= $globalColorTable[0];
 	}
-	for ($i = 0; $i < $Gif; $i++) {
+	for ($i = -1; $i < $Gif; $i++) {
+		$j = ($i == -1) ? 0 : $i;
 		$GifImage .= pack("CCC", 0x21, 0xf9, 0x04);
-		$GifImage .= pack("C", $PackedFields23 | $TransparentColorFlag[$i]);
+		$GifImage .= pack("C", $PackedFields23 | $TransparentColorFlag[$j]);
 		$GifImage .= pack("CC", 0x00, 0x00);
-		$GifImage .= pack("C", $TransparentColorIndex[$i]);
+		$GifImage .= pack("C", $TransparentColorIndex[$j]);
 		$GifImage .= pack("C", 0x00);
 		$GifImage .= pack("C", 0x2c);
-		$n = $LeftPos;
-		$LeftPos += $ImageWidth[$i];
+		$n = $leftpos;
+		$leftpos += ($i == -1) ? 0 : $ImageWidth[$j];
 		$GifImage .= pack("C", $n & 0x00ff);
 		$GifImage .= pack("C", ($n & 0xff00) >> 8);
 		$GifImage .= pack("CC", 0x00, 0x00);
-		$GifImage .= pack("C", $ImageWidth[$i] & 0x00ff);
-		$GifImage .= pack("C", ($ImageWidth[$i] & 0xff00) >> 8);
+		$GifImage .= pack("C", $ImageWidth[$j] & 0x00ff);
+		$GifImage .= pack("C", ($ImageWidth[$j] & 0xff00) >> 8);
 		$GifImage .= pack("C", $ImageHeight & 0x00ff);
 		$GifImage .= pack("C", ($ImageHeight & 0xff00) >> 8);
 		if ($useLocalColorTable) {
-			$PackedFields20[$i] |= 0x80;
-			$PackedFields20[$i] &= ~0x07;
-			$PackedFields20[$i] |= ($PackedFields18[$i] & 0x07);
-			$GifImage .= pack("C", $PackedFields20[$i]);
-			$GifImage .= $globalColorTable[$i];
+			$PackedFields20[$j] |= 0x80;
+			$PackedFields20[$j] &= ~0x07;
+			$PackedFields20[$j] |= ($PackedFields18[$j] & 0x07);
+			$GifImage .= pack("C", $PackedFields20[$j]);
+			$GifImage .= $globalColorTable[$j];
 		} else {
-			$GifImage .= pack("C", $PackedFields20[$i]);
+			$GifImage .= pack("C", $PackedFields20[$j]);
 		}
-		$GifImage .= pack("C", $LzwMinimumCodeSize[$i]);
-		$GifImage .= $ImageData[$i];
+		$GifImage .= pack("C", $LzwMinimumCodeSize[$j]);
+		$GifImage .= $ImageData[$j];
 	}
 	$GifImage .= pack("C", 0x3b);
 
@@ -178,6 +187,8 @@ sub GifHeader {
 		$GlobalColorTable 
 			= substr($buf, $cnt, $SizeOfGlobalColorTable * 3);
 		$cnt += $SizeOfGlobalColorTable * 3;
+	} else {
+		$GlobalColorTable = "";
 	}
 
 	$logicalScreenWidth += $LogicalScreenWidth;
@@ -204,10 +215,11 @@ sub GifHeader {
 		printf("Global Color Table Flag:       %d\n", $GlobalColorTableFlag);
 		printf("Color Resolution:              %d\n", $ColorResolution);
 		printf("Sort Flag:                     %d\n", $SortFlag);
-		printf("Size of Global Color Table:    %d\n", $SizeOfGlobalColorTable);
+		printf("Size of Global Color Table:    %d * 3\n", $SizeOfGlobalColorTable);
 		printf("Background Color Index:        %d\n", $BackgroundColorIndex);
 		printf("Pixel Aspect Ratio:            %d\n", $PixelAspectRatio);
-		printf("Global Color Table:            ...\n");
+		printf("Global Color Table:            \n");
+		Dump($GlobalColorTable);
 	}
 }
 
@@ -226,12 +238,16 @@ sub ImageBlock {
 			   + ord(substr($buf, $cnt + 1, 1)) * 256; $cnt += 2;
 	$PackedFields20[$Gif]  = ord(substr($buf, $cnt, 1)); $cnt++;
 	$LocalColorTableFlag   = ($PackedFields20[$Gif] & 0x80) >> 7;
-	$InterlaceFlag         = ($packedFields20[$Gif] & 0x40) >> 6;
+	$InterlaceFlag         = ($PackedFields20[$Gif] & 0x40) >> 6;
 	$SortFlag              = ($PackedFields20[$Gif] & 0x20) >> 5;
 	$Reserved              = ($PackedFields20[$Gif] & 0x18) >> 3;
-	$SizeOfLocalColorTable = 2 ** (($PackedFields20[$Gif] & 0x07) + 1);
 	if ($LocalColorTableFlag) {
+		$SizeOfLocalColorTable = 2 ** (($PackedFields20[$Gif] & 0x07) + 1);
+		$LocalColorTable = substr($buf, $cnt, $SizeOfLocalColorTable);
 		$cnt += $SizeOfLocalColorTable * 3;
+	} else {
+		$SizeOfLocalColorTable = 0;
+		$LocalColorTable = "";
 	}
 	$LzwMinimumCodeSize[$Gif] = ord(substr($buf, $cnt, 1)); $cnt++;
 	$ImageData[$Gif] = &DataSubBlock();
@@ -243,16 +259,18 @@ sub ImageBlock {
 		printf("Image Separator:               0x%02x\n", $ImageSeparator);
 		printf("Image Left Position:           %d\n", $ImageLeftPosition);
 		printf("Image Top Position:            %d\n", $ImageTopPosition);
-		printf("Image Width:                   %d\n", $ImageWidth);
+		printf("Image Width:                   %d\n", $ImageWidth[$Gif]);
 		printf("Image Height:                  %d\n", $ImageHeight);
 		printf("Local Color Table Flag:        %d\n", $LocalColorTableFlag);
 		printf("Interlace Flag:                %d\n", $InterlaceFlag);
 		printf("Sort Flag:                     %d\n", $SortFlag);
 		printf("Reserved:                      --\n");
 		printf("Size of Local Color Table:     %d\n", $SizeOfLocalColorTable);
-		printf("Local Color Table:             ...\n");
+		printf("Local Color Table:             \n");
+		Dump($LocalColorTable);
 		printf("LZW Minimum Code Size:         %d\n", $LzwMinimumCodeSize[$Gif]);
-		printf("Image Data:                    ...\n");
+		printf("Image Data:                    \n");
+		Dump($ImageData[$Gif]);
 		printf("Block Terminator:              0x00\n");
 	}
 }
@@ -405,4 +423,29 @@ sub DataSubBlock {
 	return(substr($buf, $from, $cnt - $from));
 }
 
+;# =====================================
+;# Memory Dump
+;# =====================================
+sub Dump {
+	local($buf) = @_;
+	my($i);
+
+	if (length($buf) == 0) {
+		return;
+	}
+	for ($i = 0; $i < length($buf); $i++) {
+		if (($i % 16) == 0) {
+			printf("  ");
+		}
+		printf("%02X ", ord(substr($buf, $i, 1)));
+		if (($i % 16) == 15) {
+			printf("\n");
+		}
+	}
+	if (($i % 16) != 0) {
+		printf("\n");
+	}
+}
+
 1;
+
