@@ -17,7 +17,7 @@
 </HEAD>
 <BODY bgcolor="#ffffff" text="#7e2828" link="#7726c8" alink="5c4fff" vlink="ff5959"><FONT size="+3"><B>ぷちカウンタ取扱説明書</B></FONT>
 <HR>
-<DIV align="right">高機能カウンタ - ぷちカウンタ</DIV>
+<DIV align="right">&lt;IMG&gt;タグ式CGI カウンタ - ぷちカウンタ</DIV>
 <BR>
 <CENTER>
 <TABLE width="95%" cellpadding="4" cellspacing="4">
@@ -32,34 +32,31 @@
       <BR>
       <BR>
       <CENTER>
-      <TABLE cellpadding="0" cellspacing="0" border="0">
+      <TABLE cellpadding="0" cellspacing="0" border="0" width="80%">
         <TBODY>
           <TR>
-            <TD valign="top">
-            <UL>
-              <LI><FONT size="+1"><A href="#gaiyou">概要</A></FONT>
-              <LI><FONT size="+1"><A href="#kankyou">動作環境</A></FONT>
-              <LI><FONT size="+1"><A href="#dounyuu">導入</A></FONT>
-              <LI><FONT size="+1"><A href="#settei">プログラム側の設定・使用法</A></FONT>
-              <LI><FONT size="+1"><A href="#jyunbi">ログファイルの準備</A></FONT>
-              <LI><FONT size="+1"><A href="#usage">実際の使用法</A></FONT>
-              <LI><FONT size="+1"><A href="#sengen">宣言</A></FONT>
-              <LI><FONT size="+1"><A href="#tasya">多謝</A></FONT>
-              <LI><FONT size="+1"><A href="#saigoni">最後に</A></FONT>
-            </UL>
+            <TD valign="top"><FONT size="+1"><A href="#gaiyou">● 概要/初代との違い</A></FONT><BR>
+            <FONT size="+1"><A href="#kankyou">○ 動作環境</A></FONT><BR>
+            <FONT size="+1"><A href="#dounyuu">● 導入</A></FONT><BR>
+            <FONT size="+1"><A href="#settei">○ プログラム側の設定・使用法</A></FONT><BR>
+            <FONT size="+1"><A href="#jyunbi">● ログファイルの準備</A></FONT><BR>
+            <FONT size="+1"><A href="#usage">○ 実際の使用法</A></FONT><BR>
+            <A href="#usage_log"><FONT size="+1">● 実際の使用法/ログ分析編</FONT></A><BR>
+            <FONT size="+1"><A href="#sengen">○ 宣言</A></FONT><BR>
+            <FONT size="+1"><A href="#tasya">● 多謝</A></FONT><BR>
+            <FONT size="+1"><A href="#saigoni">○ 最後に</A></FONT>
+            
             </TD>
-            <TD valign="top">
-            <UL>
-              <LI><FONT size="+1">Tips</FONT>
-              <UL>
-                <LI><FONT size="+1"><A href="#tips_trouble">トラブルシューティング</A></FONT>
-                <LI><FONT size="+1"><A href="#tips_nyuusyu">カウンタ用画像の入手場所</A></FONT>
-                <LI><FONT size="+1"><A href="#tips_seigen">カウンタ用画像の制限</A></FONT>
-                <LI><A href="#tips_watch"><FONT size="+1">時計機能を使う場合の注意</FONT></A>
-                <LI><FONT size="+1"><A href="#tips_henkou">カウント数の変更方法</A></FONT>
-                </UL>
-              
-            </UL>
+            <TD valign="top"><U><I><B><FONT size="+1">■Tips</FONT></B></I></U><BR>
+            <FONT size="+1"><A href="#tips_trouble"><BR>
+            ●トラブルシューティング</A></FONT><BR>
+            <FONT size="+1"><A href="#tips_nyuusyu">○カウンタ用画像の入手場所</A></FONT><BR>
+            <FONT size="+1"><A href="#tips_seigen">●カウンタ用画像の制限</A></FONT><BR>
+            <A href="#tips_watch"><FONT size="+1">○時計機能を使う場合の注意</FONT></A><BR>
+            <FONT size="+1"><A href="#tips_henkou">●カウント数の変更方法</A></FONT><BR>
+            <A href="#tips_nocount"><FONT size="+1">○何故、カウントアップしない指定があるのか</FONT></A>
+            
+            
             </TD>
           </TR>
         </TBODY>
@@ -83,13 +80,30 @@
       </TD>
     </TR>
     <TR>
-      <TD bgcolor="#ffdfe0">「ぷちカウンタ」は、 perl 言語で書かれた
-      IMG タグで呼び出すタイプのカウンタで、efStat(…の中のfcount.cgi)
+      <TD bgcolor="#ffdfe0">「ぷちカウンタ」は、&lt;IMG&gt;タグで呼び出すタイプのカウンタで、efStat(…の中のefCount)
       の弟分になります。<BR>
       兄貴分の efStat は高機能ではありますが、設置が難しいという難点があります。<BR>
       「アクセスログは他の方法で記録するから、カウントだけしてくれればいいんだ」<BR>
       「そもそもアクセスログなんて要らない。　純粋にカウンタだけが欲しい」<BR>
       という方もおられるでしょう。　そんな方に使っていただきたく、作成いたしました。</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1">■初代「ぷちカウンタ Ver. 1.0」との違い(設計思想の違い)</FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">初代は「カウンタとして必要最低限の機能＋多少の味付け」を重点とし、極力軽い物を、という狙いで作られています。<BR>
+      対して「ぷちカウンタ」ではロギングできる項目を更に追加し、efStat
+      とほぼ同等の機能になっています。<BR>
+      efStat のカウンタ機能だけを抜き出した物になった、という捉え方をして下さると分かりやすいと思います。<BR>
+      <BR>
+      多機能になることは喜ばしいことですが、弊害も生まれてくるでしょう。<BR>
+      一つは、動作が重くなること。　(…とは言ってもコンマ下二桁の世界だと思いますが)<BR>
+      もう一つは、項目が増えすぎて解析結果の視認性が悪くなること。<BR>
+      この辺は使い手の皆さんの好みの問題だと思いますので、お好きな方を選んでお使い下さい。<BR>
+      <BR>
+      呼び出し方は初代と全く変わらず、HTML側の移行はスムーズに行えますが、ログの互換性が全くありません。<BR>
+      今まで初代「ぷちカウンタ」を使っていた方は、新たにログを作り直していただきますよう、お願いいたします。<BR>
+      (その苦労に見合うくらいの物が今回完成したと思っているつもりではありますが…)</TD>
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0"><B><FONT size="+1"><U>ぷちカウンタの特徴</U></FONT></B>
@@ -98,6 +112,8 @@
         <LI><B><FONT size="+1">操作や設置が簡単<BR>
         </FONT></B>使い手の労力を出来る限り軽減しよう、というのが基本コンセプトです。<BR>
         普通に使う分には設定ナシで即使えるように工夫してあります。<BR>
+        今までカウンタの設置が上手く行かず、困っていた方は<A href="makehtml.html">「呼び出しタグ自動生成ツール」</A>を使ってみて下さい。<BR>
+        カウンタを驚くようにスイスイ設置できるようになる…かも？(^x^；<BR>
         <BR>
         
         <LI><B><FONT size="+1">ページ毎にログを記録することができる</FONT></B><BR>
@@ -111,13 +127,51 @@
         ただし、最後に記録された IP アドレスと比較していますので、IP
         がコロコロ変わったりするプロキシ(大学などに多い)には効果がありません。(ただし、そういう所は殆どありません)<BR>
         <BR>
-        
         <LI><B><FONT size="+1">カウント数の集計結果を簡単に表示してくれる</FONT></B><BR>
-        オプション無しで起動すると、全てのログの状態、集計結果のランキングを表示してくれます。<BR>
+        オプション無しで起動すると、ログの状態、カウント数の集計結果、そのランキングを表示してくれます。<BR>
+        表示できる項目は以下の通りです。
+        <BLOCKQUOTE>
+        <TABLE border="1" cellspacing="0" bgcolor="#ffffff">
+          <TBODY>
+            <TR>
+              <TH>ログの詳細</TH>
+              <TH>カウント数集計</TH>
+              <TH>ランキング</TH>
+            </TR>
+            <TR valign="top">
+              <TD>総カウント数<BR>
+              最終アクセス日時<BR>
+              記録開始アクセス日時<BR>
+              最終記録IPアドレス</TD>
+              <TD>日別<BR>
+              週別<BR>
+              月別<BR>
+              年度別概要<BR>
+              曜日別概要<BR>
+              時間帯別概要</TD>
+              <TD>総カウント数<BR>
+              本日<BR>
+              昨日<BR>
+              今月<BR>
+              今週</TD>
+            </TR>
+          </TBODY>
+        </TABLE>
+        </BLOCKQUOTE>
         <BR>
         
-        <LI><B>おまけ：時計機能も付けました</B><BR>
-        単純なので役に立たないとは思いますが、まあ、ページの飾りにでも使って下さい(^^；
+        <LI><B><FONT size="+1">アクセスが何日無かろうと、カウント値が反映される</FONT></B><BR>
+        殆どのアクセスカウンタは「前回ログ記録日とログ記録日を比較し、日にちが違っていれば単純に一日分過去にずらす」という仕組みですが、このカウンタでは真面目に前回記録日時からの経過時間を計算しています。<BR>
+        3日ぶりにアクセスがあっても、3年ぶりにアクセスがあっても、その分だけ正確に日数がずれます。<BR>
+        当たり前の事だと笑うかも知れませんが、実は案外珍しいんですよ(笑)<BR>
+        <BR>
+        
+        <LI><B><FONT size="+1">その他機能</FONT></B><BR>
+        カウントアップしたくないIPアドレスを指定可能<BR>
+        ファイルロック機構<BR>
+        時計表示(単純なので役に立たないとは思いますが、まあ、ページの飾りにでも使って下さい(^^；)<BR>
+        <A href="#tips_nocount">
+        表示のみを行い、カウントアップをしないようにも指定可能</A>
       </UL>
       </TD>
     </TR>
@@ -135,15 +189,18 @@
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0">UNIX系OSなら多分なんでも行けると思います。<BR>
-      厳密には truncate() 関数と flock() 関数をサポートした
-      Perl が必要です。　PERL4で書かれています。(…そのハズです)<BR>
-      <B>Windows系でも動作する筈ですが、<FONT size="+1">サポート外</FONT>とさせていただきます。</B>(腕に自信のある人は勝手に弄って下さい)<BR>
+      厳密には<B>truncate関数とflock関数をサポートした Perl
+      Version4 以上が必要</B>です。<BR>
+      Perl4の文法で書かれています。(…そのハズです)<BR>
+      <BR>
+      <B>Windows系/MacOS系とPerlの組み合わせでも動作する筈ですが、<FONT size="+1">サポート外</FONT>とさせていただきます。<BR>
+      </B>私の元にはUNIX以外のOS環境がないので動作確認ができないのです。<BR>
+      少なくとも Win9x + MS IIS + ActivePerl
+      の組み合わせでは修正なしには動きません。<BR>
       <BR>
       (動作確認は<BR>
       　　　FreeBSD 2.2.7R + Apache + jperl5.004_04-980303
       / perl4.0 Rev.1.7.2.2 Patch level 36<BR>
-      　　　Red Hat Linux release 4.2 + Apache
-      + perl4.0 Rev.4.0.1.8 Patch level 36<BR>
       にて行いました。)<BR>
       <BR>
       <B>CGI 専用です。</B>　CGI が使用可能になっているか、プロバイダ側サーバに
@@ -174,11 +231,12 @@
           </TR>
           <TR>
             <TD>pc.cgi</TD>
-            <TD>ぷちカウンタ本体</TD>
+            <TD>ぷちカウンタ本体。<BR>
+            カウンタ機能を担当します。</TD>
           </TR>
           <TR>
             <TD>ps.pl</TD>
-            <TD>ぷちすたっと - ぷちカウンタ用アドイン<BR>
+            <TD>ぷちすたっと2 - ぷちカウンタ用アドイン<BR>
             カウント数の集計を担当します。</TD>
           </TR>
           <TR>
@@ -191,13 +249,33 @@
             <TD>ぷちカウンタが使う画像(消さないで！)</TD>
           </TR>
           <TR>
-            <TD>readme.html</TD>
-            <TD>説明書(このファイル)</TD>
-          </TR>
-          <TR>
-            <TD><A href="sample.html">sample.html</A></TD>
+            <TD><A href="../sample.html">sample.html</A></TD>
             <TD>呼び出しサンプル<BR>
             (具体的な呼び出し方・テクニックを書いています)</TD>
+          </TR>
+          <TR>
+            <TD colspan="2" align="right">
+            <TABLE border="1" cellpadding="2" cellspacing="0" width="90%">
+              <TBODY>
+                <TR>
+                  <TH nowrap>&lt;docディレクトリ&gt;</TH>
+                  <TH nowrap>[説明書が格納されています]</TH>
+                </TR>
+                <TR>
+                  <TD><A href="readme.html">readme.html</A></TD>
+                  <TD>説明書(このファイル)</TD>
+                </TR>
+                <TR>
+                  <TD><A href="makehtml.html">makehtml.html</A></TD>
+                  <TD>ぷちカウンタを呼び出すための&lt;IMG&gt;タグを一発で作ってくれるツールです。</TD>
+                </TR>
+                <TR>
+                  <TD><A href="format.csv">format.csv</A></TD>
+                  <TD>ログファイルの仕様書(要・表計算ソフト/CSVエディタ)</TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+            </TD>
           </TR>
           <TR>
             <TD colspan="2" align="right">
@@ -241,6 +319,9 @@
               </TBODY>
             </TABLE>
             </TD>
+          </TR>
+          <TR>
+            <TH colspan="2">※ 所々にヒョッコリある index.html ファイルは、ディレクトリを覗こうとする人を弾くためのダミーです。　※</TH>
           </TR>
         </TBODY>
       </TABLE>
@@ -348,52 +429,50 @@
       </TD>
     </TR>
     <TR>
-      <TD bgcolor="#ffdfe0">
-      <UL>
-        <LI><B>perl のパス<BR>
-        </B>pc.cgi の一行目のPerlへのパスををお使いのプロバイダに合わせて書き換えます。<BR>
-        もし、perlのパスが /usr/bin/perl
-        だったら、<BR>
-        <BLOCKQUOTE><B>#!/usr/bin/perl</B></BLOCKQUOTE>
-        と書き換えて下さい。　頭の#!は消してはいけません。<BR>
-        <BR>
-        
-        <LI><B>ログファイルを格納したディレクトリ<BR>
-        </B>ぷちカウンタ 一式をインストールしたディレクトリから見た相対パスで指定します。　(デフォルトは
-        log/ )<BR>
-        他人にブラウザからログを直接読まれたくないという人はここを変更します。<BR>
-        (ただし、ログ用ディレクトリは ぷちカウンタ
-        をインストールしたディレクトリの中(配下)になければなりません)<BR>
-        特別な事情がなければ変更せずにお使い下さい。<BR>
-        <B><A href="readme.html">readme.html</A> の通りにインストールしたのなら変更しないで下さい。</B><BR>
-        <BR>
-        
-        <LI><B>カウンタのイメージを格納したディレクトリ<BR>
-        </B>ぷちカウンタ一式をインストールしたディレクトリから見た相対パスで指定します。<BR>
-        (デフォルトは image )<BR>
-        都合上他のディレクトリにカウンタ用イメージを入れた場合はここを変更します。<BR>
-        (ただし、カウンタ画像用ディレクトリは
-        ぷちカウンタ
-        をインストールしたディレクトリの中(配下)になければなりません)<BR>
-        特別な事情がなければ変更せずにお使い下さい。<BR>
-        <B><A href="readme.html">readme.html</A> の通りにインストールしたのなら変更しないで下さい。<BR>
-        </B><BR>
-        <A href="#tips_nyuusyu">Digit Maniaなどのサイトからカウンタのイメージファイルをダウンロード</A>してきて解凍すると、フォント名の付いたディレクトリが出来るはずです。<BR>
-        そのディレクトリをそのままこの、イメージ格納用ディレクトリ(何も変更していないなら
+      <TD bgcolor="#ffdfe0"><B>＜perl のパス＞</B>
+      <BLOCKQUOTE>pc.cgi の一行目のPerlへのパスををお使いのプロバイダに合わせて書き換えます。<BR>
+      もし、perlのパスが /usr/bin/perl
+        だったら、<BLOCKQUOTE><B>#!/usr/bin/perl</B></BLOCKQUOTE>
+      と書き換えて下さい。　頭の#!は消してはいけません。</BLOCKQUOTE>
+      <BR>
+      <B>＜ログファイルを格納したディレクトリの名前＞</B>
+      <BLOCKQUOTE>ログファイルを格納したディレクトリの名前を指定します。　(デフォルトは
+      log )<BR>
+      このディレクトリは pc.cgi , ps.cgi
+      と同じディレクトリに置かなければなりません。<BR>
+      他人にブラウザからログを直接読まれたくないという人はここを変更します。<BR>
+      特別な事情がなければ変更せずにお使い下さい。</BLOCKQUOTE>
+      <BR>
+      <B>＜カウンタ用画像を格納したディレクトリの名前＞</B>
+      <BLOCKQUOTE>カウンタ用画像を格納したディレクトリの名前を指定します。　(デフォルトは
+      image )<BR>
+      このディレクトリは pc.cgi , ps.cgi
+      と同じディレクトリに置かなければなりません。<BR>
+      特別な事情がなければ変更せずにお使い下さい。<B><BR>
+      </B><BR>
+      <A href="#tips_nyuusyu">Digit Maniaなどのサイトからカウンタのイメージファイルをダウンロード</A>してきて解凍すると、フォント名の付いたディレクトリが出来るはずです。<BR>
+      そのディレクトリをそのままこの、イメージ格納用ディレクトリ(何も変更していないなら
         image )の中にコピーして下さい。　そうしないと上手く動作しません。<BR>
-        <BR>
-        <B>　＜例＞</B><BR>
-        　fuksan.zip を解凍したら、 fuksan
-        というディレクトリが出来ます。<BR>
-        　それをそのままココで設定したディレクトリの中に入れて下さい。<BR>
-        <BR>
-        
-        <LI><B>カウンタのイメージの名前<BR>
-        </B>1.<B> </B>でコピーしたディレクトリの名前を入力して下さい。<BR>
-        ここでは fuksan ですね。<BR>
-        ここで指定する名前はデフォルトの指定となり、呼び出し時にフォント指定をしなかった場合、ここで指定されたフォントが使用されます。
-      </UL>
-      
+      <BLOCKQUOTE><B>＜例＞</B><BR>
+      fuksan.zip を解凍したら、 fuksan というディレクトリが出来ます。<BR>
+      それをそのままココで設定したディレクトリの中に入れて下さい。</BLOCKQUOTE>
+      </BLOCKQUOTE>
+      <BR>
+      <B>＜カウンタのイメージの名前＞</B>
+      <BLOCKQUOTE>上記の<B>＜例＞</B>のような、ディレクトリの名前を入力して下さい。<BR>
+      ここで指定する名前はデフォルトの指定となり、呼び出し時にフォント指定をしなかった場合、ここで指定されたフォントが使用されます。</BLOCKQUOTE>
+      <BR>
+      <B>＜カウントアップさせないIPアドレス＞</B><BLOCKQUOTE>
+      通常、普段自分に割り当てられるIPアドレスを指定して下さい。　(空欄でも可)<BR>
+      ここで指定されたIPアドレスを持つ人間に対してはアクセス数を数えません。<BR>
+      指定は一つしかできません。　また、ホスト名での指定はできません(処理速度向上の関係)。<BR>
+      まあ、おまけというか、おまじないというか、その程度の物と考えて下さい。
+      </BLOCKQUOTE><BR>
+      <B>
+      ＜集計画面で最終アクセス者のIPアドレスを表示させるか＞</B>
+      <BLOCKQUOTE>カウンタの集計結果を公開するような場合、お客さんのIPが表示されると気まずい場合がありますが、ここで
+      0 を指定しておくと Logfile status report
+      にて最終記録IPが表示されません。</BLOCKQUOTE>
       </TD>
     </TR>
   </TBODY>
@@ -420,15 +499,18 @@
         index.log という名前が良いでしょう。　link.html
         なら link.log とか。　自分が分かりやすいものを。
         <BR>
+        この作業を自分が欲しいログの数だけ繰り返します。<BR>
+        
         
         <LI><B>作ったファイルをftpでサーバにアップロードします。</B><BR>
         必ず「アスキーモード」でアップロードして下さい。<BR>
         
-        <LI><B>パーミッションを 606(-rw----rw-) にします。</B><BR>
+        <LI><B>パーミッションを 606(-rw----rw-) 又は 600(-rw-------)
+        にします。</B><BR>
         これを忘れるとプログラムがログを書き込めず、カウントしてくれません。<BR>
-        パーミッションに関する詳しい説明は <A href="readme.html#dounyuu">readme.html</A> を読んで下さい。
+        パーミッションに関する詳しい説明は <A href="#dounyuu">導入</A> を読んで下さい。<BR>
+        
       </OL>
-      <BR>
       これで準備は完了です。</TD>
     </TR>
   </TBODY>
@@ -441,16 +523,17 @@
 <TABLE width="95%" cellpadding="4" cellspacing="4">
   <TBODY>
     <TR>
-      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="usage">■ 実際の使用法</A></FONT></B></TD>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="usage">■ 実際の使用法/設置編</A></FONT></B></TD>
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0">ちょっと戸惑うかも知れませんけど、まず始めに呼び出しの書式を示しておきます。
       <BR>
+      本当は<A href="makehtml.html">呼び出しタグ自動生成ツール</A>がありますが、これに甘えすぎるとトラブった時に自分で解決できないので、必ずこっちを熟読してから使って下さい。<BR>
       ややこしそうだけど、実際は簡単ですよ(^^)
       <BR>
       <BR>
       <DIV align="right">
-      <TABLE border="1" cellpadding="4" cellspacing="0" width="90%" bgcolor="#ffffff">
+      <TABLE border="1" cellpadding="4" cellspacing="0" width="95%" bgcolor="#ffffff">
         <TBODY>
           <TR>
             <TD colspan="3"><B>【書式】</B><BR>
@@ -471,21 +554,25 @@
             ※省略可</TD>
             <TD colspan="2">どういうカウンタを表示させるかを指定します。<B><BR>
             <FONT color="#a600a2">a , t , y , w</FONT></B> が使用できます。<BR>
-            省略すると強制的に総カウント数が表示されます。</TD>
+            省略すると強制的に総カウント数が表示されます。<BR>
+            <BR>
+            それぞれの英文字に頭に <B><FONT color="#a600a2">-</FONT></B> (ハイフン)を付加すると、カウントアップを行いません。<BR>
+            つまり、<B>それぞれの項目のカウント値を表示させるだけ</B>という動き方をします。<BR>
+            詳しくは <A href="#tips_nocount">何故カウントアップしない指定があるのか</A> を参照下さい。</TD>
           </TR>
           <TR>
             <TH colspan="2">それぞれの意味</TH>
           </TR>
           <TR>
-            <TH><FONT color="#a600a2">a</FONT></TH>
+            <TH><FONT color="#a600a2">a (-a)</FONT></TH>
             <TD>総カウント数を表示 (<B><U>A</U></B>ll)</TD>
           </TR>
           <TR>
-            <TH><FONT color="#a600a2">t</FONT></TH>
+            <TH><FONT color="#a600a2">t (-t)</FONT></TH>
             <TD>本日カウント数を表示 (<B><U>T</U></B>oday)</TD>
           </TR>
           <TR>
-            <TH><FONT color="#a600a2">y</FONT></TH>
+            <TH><FONT color="#a600a2">y (-y)</FONT></TH>
             <TD>昨日カウント数を表示 (<B><U>Y</U></B>esterday)</TD>
           </TR>
           <TR>
@@ -497,9 +584,9 @@
             <TD nowrap><B><I><FONT color="#a60400">[表示桁数]</FONT></I></B><BR>
             ※省略可</TD>
             <TD colspan="2">カウンターの数字を何桁で表示させるか指定します。<BR>
-            <B><FONT color="#a60400">0 から 9 まで</FONT></B>の値が指定できます。<BR>
+            <B><FONT color="#a60400">0 から 20 まで</FONT></B>の値が指定できます。<BR>
             (0 は実質的にオプションを省略したことと同じ意味になります)<BR>
-            9桁以上を指定するとエラーになります。<BR>
+            20桁以上を指定するとエラーになります。<BR>
             省略すると桁数が足りないときに
             0 を付け足さなくなります。</TD>
           </TR>
@@ -553,8 +640,7 @@
       など、オプションを色々と組み合わせて反応を見てみましょう。<BR>
       （ちなみに、この時にカウント数が増えないのは正常な動作です）<BR>
       なお、書式の欄でも書きましたが、<B>全てのオプションの順番はバラバラでも構いません。</B><BR>
-      ここまで来れば、ぷちカウンタを使いこなせたも同然です(^^)<BR>
-      <BR>
+      ここまで来れば、ぷちカウンタを使いこなせたも同然です！(^^)<BR>
       <BR>
       <BR>
       <B><U>《実際の導入例》</U></B><BR>
@@ -576,6 +662,183 @@
 <TABLE width="95%" cellpadding="4" cellspacing="4">
   <TBODY>
     <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="usage_log">■ 実際の使用法/ログ分析編</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">カウンタの設置が上手く行ったら、今度はログを見てみましょう。　ブラウザから<BR>
+      <BLOCKQUOTE>http://???/~username/cgi-bin/petit/pc.cgi<BR>
+      （ページのあるサーバが ??? で、あなたのユーザ名が
+      username、cgi-bin というディレクトリの中に
+      ぷちカウンタ を置いている場合）</BLOCKQUOTE>
+      と入力して下さい。　つまり、オプションを一切付けずにぷちカウンタを起動します。<BR>
+      すると、カウント数の集計が表示されるはずです。　表の読み方を説明します。<BR>
+      <BR>
+      <CENTER>
+      <TABLE border="1" width="95%" cellspacing="0" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TH>ログファイルに関する情報(Logfile status report)</TH>
+          </TR>
+          <TR>
+            <TD>それぞれの列は<BR>
+            <BLOCKQUOTE>ログファイル名　総アクセス数　最終アクセス日時　ログを取り始めた日時　最後に記録されたIPアドレス</BLOCKQUOTE>
+            を意味しています。　ログファイル名の場所には<BR>
+            <BLOCKQUOTE>ログファイルを読み込めなかった場合　<B><S>ログファイル名</S>(Can't read)</B><BR>
+            ログファイルの形式が違う場合　<B><S>ログファイル名</S>(Illegal log)</B></BLOCKQUOTE>
+            と表示されます。　この場合、カウントが正常に行われていませんので、ファイルをチェックしましょう。</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      <BR>
+      <CENTER>
+      <TABLE border="1" width="95%" cellspacing="0" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TH nowrap rowspan="4">Daily Report<BR>
+            (日別集計)</TH>
+            <TD colspan="2">1日に何人お客さんが来たか。 過去1週間+1日までを記録します。<BR>
+            「7days」は先週の同じ曜日の日を表しています。　参考データといったところでしょうか。</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>過去1週間+1日の訪問者数</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>サイト全体で1日に何人の人が来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1日に平均何人来ているか (一番下はサイト全体の平均)</TD>
+          </TR>
+          <TR>
+            <TH nowrap rowspan="4">Weekly Report<BR>
+            (週別集計)</TH>
+            <TD colspan="2">週何人お客さんが来たか。 過去5週前まで記録します。<BR>
+            「5weeks」は1ヶ月前の同じ週(分かりにくいな)を表します。　増減の参考にして下さい。<BR>
+            プログラムの都合上、日曜,月曜,～,土曜の一週間を「一週」とするのではなく、1月1日から数えた「通算週」で計算しています。</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>過去4+1週間の訪問者数</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>サイト全体で1週間に何人の人が来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1週間に平均何人来ているか (一番下はサイト全体の平均)</TD>
+          </TR>
+          <TR>
+            <TH nowrap rowspan="4">Monthly Report<BR>
+            (月別集計)</TH>
+            <TD colspan="2">1ヶ月に何人お客さんが来たか。 1～12月、1年間かけて記録します(笑)<BR>
+            <B>
+            年が明けると自動的にリセットされます。</B></TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>現在の月までの訪問者数</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>サイト全体で1ヶ月に何人の人が来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1ヶ月に平均何人来ているか (一番下はサイト全体の平均)</TD>
+          </TR>
+          <TR>
+            <TH nowrap rowspan="4">Yearly Report<BR>
+            (年度別集計)</TH>
+            <TD colspan="2">1年間で何人のお客さんが来たか。　過去5年間分まで保持します。</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>過去5年間の訪問者数</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>サイト全体で1年間に何人の人が来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1年間に平均何人来ているか (一番下はサイト全体の平均)</TD>
+          </TR>
+          <TR>
+            <TH nowrap rowspan="4">Daily Summary<BR>
+            (曜日別集計)</TH>
+            <TD colspan="2">各曜日に、のべ何人お客さんが来たか。</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>この情報に意味はありません。　強いて言うなら総カウント数？</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>各曜日、のべ何人のお客さんが来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1日に平均何人来ているか (一番下はサイト全体の平均)<BR>
+            ※ 日別集計の平均よりも正確な値が出ます ※</TD>
+          </TR>
+          <TR>
+            <TH nowrap rowspan="4">Hourly Summary<BR>
+            (時間帯別集計)</TH>
+            <TD colspan="2">ある時間帯に、のべ何人お客さんが来たか。</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Total」</TH>
+            <TD>この情報に意味はありません。　強いて言うなら総カウント数？</TD>
+          </TR>
+          <TR>
+            <TH align="right">横軸の「Total」</TH>
+            <TD>各時間帯、のべ何人のお客さんが来たか</TD>
+          </TR>
+          <TR>
+            <TH align="right">縦軸の「Ave.」</TH>
+            <TD>各ページ、1時間に平均何人のお客さんが訪れるか
+            (一番下はサイト全体の平均)</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      <BR>
+      <CENTER>
+      <TABLE border="1" width="95%" cellspacing="0" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TH>各種ランキング(～ranking)</TH>
+          </TR>
+          <TR>
+            <TD>それぞれ、
+            <BLOCKQUOTE>Total ranking　…　総合アクセス数でのランキング<BR>
+            Today's ranking　…　本日アクセス数<BR>
+            Yesterday's ranking　…　昨日のアクセス数<BR>
+            This Month's ranking　…　今月のアクセス数<BR>
+            This Week's ranking　…　今週のアクセス数</BLOCKQUOTE>
+            を表しています。<BR>
+            Site totalが総計を意味し、項目はそれぞれ順番に<BR>
+            <BLOCKQUOTE>順位(※同着の場合、表示されない)　ページ名(ログファイル名)　グラフ　集計値　全体の中の割合</BLOCKQUOTE>
+            を表しています。</TD>
+            </TR>
+          </TBODY>
+      </TABLE>
+      </CENTER>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
       <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_trouble">■ tips / トラブルシューティング</A></FONT></B></TD>
     </TR>
     <TR>
@@ -585,14 +848,31 @@
         </B>ログファイルのパーミッションは (606) ですか？<BR>
         <BR>
         
-        <LI><B>“e0000”という画像が表示された</B><BR>
-        ログファイルを開くことが出来ませんでした。<BR>
-        ファイル名の指定に誤りがないか、パーミッションは正しいかを確認して下さい。<BR>
+        <LI><B>“e????”という画像が表示された<BR>
+        </B>何らかのエラーが発生しています。　以下、エラー番号の意味を示します。
+        <BLOCKQUOTE>
+        <TABLE border="1" cellspacing="0" bgcolor="#ffffff">
+          <TBODY>
+            <TR>
+              <TH>e0000</TH>
+              <TD>ログファイルを開くことが出来ませんでした。<BR>
+              ファイル名の指定に誤りがないか、パーミッションは正しいかを確認して下さい。</TD>
+            </TR>
+            <TR>
+              <TH>e0001</TH>
+              <TD>桁数の指定が間違っています。<BR>
+              20桁までにして下さい。</TD>
+            </TR>
+            <TR>
+              <TH>e1110</TH>
+              <TD>オプション指定が不正です。<BR>
+              打ち込み間違って大文字などで指定していませんか？</TD>
+            </TR>
+            </TBODY>
+        </TABLE>
+        </BLOCKQUOTE>
         <BR>
         
-        <LI><B>“e0001”という画像が表示された</B><BR>
-        桁数の指定が間違っています。　9桁までにして下さい。<BR>
-        <BR>
         <LI><B>画像が表示されない(破れたアイコンが表示される)</B><BR>
         <BR>
         <OL>
@@ -602,7 +882,7 @@
             パーミッションは 705 にしましたか？<BR>
             <BR>
             
-            <LI><B>pc.cgi が壊れている</B><BR>
+            <LI><B>pc.cgi が壊れている</B>
             <OL>
               <LI>pc.cgi をバイナリモードで送っていませんか？
               <LI>極めてまれですが、色んなゴタゴタでファイルが損傷しているかも知れません。　ダウンロードしなおしてみましょう。
@@ -610,9 +890,7 @@
             <BR>
             
             <LI><B>プログラムのバグ・サーバと相性が悪い</B><BR>
-            どうしても駄目なようなら作者まで<A href="mailto:fuka@tech.millto.net?Subject=[petit] 問い合わせ">メール</A>下さい。<BR>
-            <BR>
-            
+
             <LI><B>gifcat.pl を呼び出せなかった</B>
             <OL>
               <LI>gifcat.pl が壊れている
@@ -624,7 +902,7 @@
               </OL>
               
               <LI>パーミッションは正しいですか？<BR>
-              少なくとも「他人」が「読み込み可能」になっていないといけません。
+              少なくとも「他人」(又は「自分」)が「読み込み可能」になっていなければなりません。
             </OL>
             
           </OL>
@@ -638,24 +916,29 @@
         </OL>
         
         <LI><B>ERROR という文字が表示される(URL入力欄から直にカウンタを呼び出した場合)</B><BR>
+        これは gifcat.pl が発したエラーメッセージです。<BR>
         カウンタ用の画像に何か問題があるようです。　<A href="#tips_seigen">詳しくはこちらをご覧下さい。</A><BR>
-        
+        <BR>
         <LI><B>カウンタの数字が最初の一桁しか表示されない</B><BR>
         ブラウザが古いとこうなります。<BR>
         実はあのグラフィックはアニメGIFとして表示されています。　よって、アニメGIFに対応したブラウザが必要です。<BR>
         これは gifcat.pl の仕様です。　gifcat.pl
         を使う以上、これはどうしようもありません。<BR>
         ただし、他の方法を採るとUNISYS社の権利に抵触し、私が多額(?)の使用料金を支払わねばなりません。<BR>
-        ですから、今後もずっとアニメGIF未対応のブラウザに対応することはないでしょう。
+        ですから、今後もずっとアニメGIF未対応のブラウザに対応することはないでしょう。<BR>
+        <BR>
+        
+        <LI><B>(カウント数集計時) “Can't find directory!!　～”と表示された</B><BR>
+        指定されたディレクトリが見つかりませんでした。　ディレクトリ名の指定は合っていますか？<BR>
+        <BR>
+        
+        <LI><B>(カウント数集計時) “Can't open directory!!　～”と表示された<BR>
+        </B>指定されたディレクトリを開くことができませんでした。　パーミッションの指定は合っていますか？
       </UL>
       <BR>
-      <BR>
-      <B>どーしてもダメ。　っていうか作った奴死なす。　時間返せ。</B><BR>
-      極力頑張って下さい(⌒ω⌒；<BR>
-      大概は設置した人のミスです。<BR>
-      が、どうしても駄目な場合は、入会しているプロバイダの名前と、ぷちカウンタ
-      のバージョン番号を添えてサポート掲示板にて報告下さい。<BR>
-      <BR>
+      <B>どーしてもダメ。</B><BR>
+      極力頑張って下さい(⌒ω⌒；　大概は設置した人のミスです。<BR>
+      どうしても駄目な場合は、<B>掲示板にて</B>ご報告下さい(質問メールは一切受け付けていません)。<BR>
       その前に、<A href="http://tech.millto.net/~fuka/tips/how2check.html">CGI/SSI が上手く動かない場合の対処法(汎用)
       </A>を読むのも忘れないで下さいね。</TD>
     </TR>
@@ -678,7 +961,7 @@
       <BR>
       カウンタ用の画像ファイルはココで入手すると良いでしょう。
       <CENTER>
-      <TABLE>
+      <TABLE border="1" cellspacing="0" bgcolor="#ffffff">
         <TBODY>
           <TR>
             <TD><B>ここ掘れ！</B></TD>
@@ -769,19 +1052,19 @@
       <TD bgcolor="#ffdfe0">今まで別のカウンタを使っていたので今までのカウント数を継続したい。<BR>
       そんな方にはログファイルを手直ししていただかねばなりません。<BR>
       <OL>
-        <LI><A href="#jyunbi">■ログファイルの準備</A>を読んでログファイルを準備し、<A href="#siyouhou">■実際の使用法</A>を読み、カウンタを動作させて、一度ログファイルを書き込んで(フォーマットして)下さい。
+        <LI><A href="#jyunbi">■ログファイルの準備</A>を読んでログファイルを準備し、<A href="#usage">■実際の使用法</A>を読み、カウンタを動作させて、一度ログファイルを書き込んで(フォーマットして)下さい。
         <LI>とりあえず記録した、そのログファイルをテキストエディタで開いて下さい。
       </OL>
       <BR>
       <CENTER>
-      <TABLE cellpadding="0" cellspacing="0">
+      <TABLE cellspacing="0" border="1" bgcolor="#ffffff">
         <TBODY>
           <TR>
             <TD>
-            <PRE>                       &lt;注目！&gt;
-                          ↓
-1999/03/22(Mon)#22:38:40#１１#0#0#192.168.1.1
-</PRE>
+            <PRE>PC2#967892960
+967897078#4#210.171.1.129
+          ↑ 
+      ＜注目！＞</PRE>
             </TD>
           </TR>
         </TBODY>
@@ -789,12 +1072,39 @@
       </CENTER>
       <BR>
       このようになっていると思います(多少の違いは気にしないで下さい)。<BR>
-      <B># で区切られたマス目の3番目の数字です。</B><BR>
-      これが<B>総カウント数</B>を表しています。　半角数字で好きな値に直して下さい。<BR>
-      ちなみに、ログは
-      <BLOCKQUOTE>
-      最終記録日、最終記録時刻、総カウント数、本日カウント数、昨日カウント数、最終記録IP</BLOCKQUOTE>
-      という順にデータが並んでいます。</TD>
+      <B>2行目、 # で区切られたマス目の2番目の数字です。</B><BR>
+      これが<B>総カウント数</B>を表しています。　<B>半角数字</B>で好きな値に直して下さい。<BR>
+      その他、ログに関する詳細は
+      <A href="format.csv">format.csv</A>を参照して下さい(要・表計算ソフト/CSVエディタ)。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_nocount">■ tips / 何故、カウントアップしない指定があるのか</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">例えば、総合、本日、昨日のカウント数を一つのページに表示させるとします。　その場合、<BLOCKQUOTE>総合：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=a&quot;&gt;<BR>
+      本日：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=t&quot;&gt;<BR>
+      昨日：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=y&quot;&gt;</BLOCKQUOTE>
+      このようにタグを打つはずですよね。　この時、3つのぷちカウンタはほぼ同時並行で作動します。<BR>
+      普通は3回同時に呼び出されたと言うことで全体で一気に3人分のカウントをしてしまうことになりますが、IPアドレスを利用した重複アクセス防止機構でその問題は回避されます。<BR>
+      しかし例えば、ほぼ同時にAさんとBさんがアクセスした場合、<BLOCKQUOTE>総合分のカウンタはAさんが呼び出し(AさんのIPを記録)<BR>
+      本日分のカウンタはBさんが呼び出し(BさんのIPを記録)<BR>
+      昨日分のカウンタはAさんが呼び出す(AさんのIPをまた記録してしまう)</BLOCKQUOTE>
+      …といった風に、アクセス1回分が無駄に記録されてしまう困った現象が起きてしまいます。<BR>
+      そこで、飾りのカウンタには - (ハイフン)オプションを付けてカウントさせないように指示することを<B>強く推奨します</B>。<BLOCKQUOTE>総合：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=a&quot;&gt;<BR>
+      本日：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=-t&quot;&gt;<BR>
+      昨日：&lt;IMG src=&quot;./pc.cgi?LOG=index&amp;MODE=-y&quot;&gt;</BLOCKQUOTE>
+      つまり、タグをこんな風に書き換えます。<BR>
+      記録を取るのは総合分のカウンタだけになり、その他のカウンタは記録を取らなくなります。<BR>
+      代表のカウンタのみにカウントアップを行わせることによってカウンタの精度が格段に向上するはずです。　是非、お試しを。</TD>
     </TR>
   </TBODY>
 </TABLE>
@@ -810,20 +1120,19 @@
     </TR>
     <TR>
       <TD bgcolor="#ffdfe0">
-      <B>このプログラムはフリーソフトです。</B><BR>
-      著作権は放棄しません。 プログラム中のコピーライト表記を削除したり、改変しないで下さい。<BR>
+      <B>このプログラムはフリーソフトです。</B>
+      <BLOCKQUOTE>著作権は放棄しません。 プログラム中のコピーライト表記を削除したり、改変しないで下さい。<BR>
       画面のレイアウトを変えたりだとか、メッセージを変更したくらいで名前を変更されると、作者としては非常に寂しいです(笑)<BR>
       が、あなたが ぷちカウンタ に原形をとどめない程の大幅な改造を施した場合は問題ありません。<BR>
-      その辺は常識的なさじ加減ということで…(^_^；<BR>
+      その辺は常識的なさじ加減ということで…(^_^；</BLOCKQUOTE>
       <BR>
-      <B><U>正規版の</U>第三者による配布は禁止します。</B> <BR>
-      これは、普及に伴いバージョン管理が困難になってきた実状を踏まえてこうなっています。<BR>
+      <B><U>正規版の</U>第三者による配布は禁止します。</B> <BLOCKQUOTE>これは、普及に伴いバージョン管理が困難になってきた実状を踏まえてこうなっています。<BR>
       CD-ROMなど、私のページ以外の場所で掲載する場合は<B>必ず</B>ご一報下さい。<BR>
-      (ただし、Vectorなど、私が自ら登録した物は除外します)<BR>
+      (ただし、Vectorなど、私が自ら登録した物は除外します)</BLOCKQUOTE>
       <BR>
-      <B>自由に改造して使用して下さい。</B>　 改造したものを再配布する事も制限しません。<BR>
+      <B>自由に改造して使用して下さい。</B><BLOCKQUOTE>改造したものを再配布する事も制限しません。<BR>
       当然、 ぷちカウンタ のログ記録形式を利用した互換品を開発することもOKです。<BR>
-      ただし、改造版のサポートは改造した方が各自責任を持って行って下さい。<BR>
+      ただし、改造版のサポートは改造した方が各自責任を持って行って下さい。</BLOCKQUOTE>
       <BR>
       <B>営利目的の使用・個人向けサイト以外の利用を制限しません。</B><BR>
       煮るなり焼くなり好きに使って下さい。<BR>
@@ -847,8 +1156,6 @@
       <TD bgcolor="#ffdfe0">
       <A href="http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt">GIF画像を連結するライブラリ gifcat.pl</A> は s-hasei 氏に著作権があります。<BR>
       <BR>
-      外部サーバにおける動作試験には、<A href="http://www2d.biglobe.ne.jp/~gama/cgi/">がまさんの「telnet.cgi」</A>を使用しました。<BR>
-      <BR>
       これらの有用なプログラムを開発して下さった方々に深く感謝いたします。<BR>
       また、s-hasei 氏の<A href="http://wakusei.cplaza.ne.jp/twn/">「とほほのWWW入門」</A>、ドッシー秋山氏/キャメル桜田氏共著の<A href="http://p4room.mda.or.jp/">「すぐに使える Perl スクリプト CGI &amp;
       SSI 快適活用ライブラリ」</A>は制作の上で大変参考になりました。　ありがとうございます。</TD>
@@ -869,20 +1176,20 @@
       <TD bgcolor="#ffdfe0">本ソフトはフリーソフトではありますが、沢山の労力と時間を割いて作られております。<BR>
       だからといって物質的な見返りはこれっぽっちも期待しておりませんが、皆さんに使ってもらいたい、沢山の反響が欲しい、という自己満足がプログラム製作の原動力になっております。　極力私のサイトへリンクを張ってもらえると作者冥利に尽きます。<BR>
       <BR>
-      もしよろしければ不可思議絵の具まで「ぷちカウンタ使ってるよ～」と<A href="mailto:fuka@tech.millto.net?Subject=ぷちカウンタ使ってます">メール</A>でも掲示板でも何でも構いませんので教えてあげて下さい。<BR>
+      もしよろしければ不可思議絵の具まで「ぷちカウンタ使ってるよ～」とメールでも掲示板でも何でも構いませんので教えてあげて下さい。<BR>
       大抵の場合、返事をお返しすることは出来ないと思いますが、送っていただいたメールには全て目を通しております。<BR>
       そんな皆様の温かいご声援メールは私の元気の源になっています。　ありがとうございます(^^)<BR>
       <BR>
       カウンターGIF作家の皆様、カウンタ用画像を自分用に作ってそのままだったり、一応公開する目的で作ってはみたけれど公開する場所・チャンスがない…そんなデータをお持ちではないですか？<BR>
       そのまま終わりじゃもったいないですよ☆　皆さんの自慢の作品を私ののページに置いてみませんか？<BR>
       もしかしたら、誰か使ってくれるかも知れません。<BR>
-      カウンタ用画像を提供して下さる方を募集しています。　もしよかったら<A href="mailto:fuka@tech.millto.net?Subject=カウンタ用画像">メール</A>下さい。</TD>
+      カウンタ用画像を提供して下さる方を募集しています。　もしよかったらメール下さい。</TD>
     </TR>
   </TBODY>
 </TABLE>
 </CENTER>
 <HR>
 <DIV align="right">&copy;2000 不可思議絵の具<BR>
-(<A href="http://tech.millto.net/~fuka/">http://tech.millto.net/~fuka/</A>)</DIV>
+(<A href="http://yugen.main.jp/">http://yugen.main.jp/</A>)</DIV>
 </BODY>
 </HTML>

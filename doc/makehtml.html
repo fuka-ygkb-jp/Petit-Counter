@@ -1,0 +1,248 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>ぷちカウンタ V2.x 用呼び出しタグ自動生成ツール</TITLE>
+
+<SCRIPT language="JavaScript">
+<!--JavaScript
+/*** 恥ずかしいからソース覗かないで～ ***/
+
+//データ受け取り
+function getdata(form) {
+
+	path    = form.path.value;
+	logname = form.logname.value;
+
+	for (i=0 ; i < form.mode.length ; i++) {
+		if (form.mode[i].checked) {
+			mode = form.mode[i].value;
+			break;
+		}
+	}
+
+	digit = form.digit.selectedIndex;	// valueだとネスケではNULLになる
+	font  = form.font.value;
+
+	for (i=0 ; i < form.do_count.length ; i++) {
+		if (form.do_count[i].checked) {
+			do_count = form.do_count[i].value;
+			break;
+		}
+	}
+
+	img_width  = form.img_width.value;
+	img_height = form.img_height.value;
+	img_border = form.img_border.value;
+	img_alt    = form.img_alt.value;
+
+	disp(form);
+}
+
+
+//表示
+function disp(form) {
+
+	if (path == "") {
+		alert("パスが指定されていませんよ！");
+	} else {
+		msg_path = path+"?";
+	}
+
+	if ((logname == "") && (mode != "w")) {
+		alert("ログファイルが指定されていませんよ！");
+	} else {
+		if (mode == "w") { msg_log = ""; }	// 時計モードならログの指定は不要である
+		else { msg_log = "LOG="+logname; }
+	}
+
+	if (do_count == "y") {
+		if (mode != "a") { msg_mode = "&MODE="+mode; }
+		else { msg_mode = ""; }
+	} else {
+		if (mode == "w") { msg_mode = "&MODE="+mode; }
+		else { msg_mode = "&MODE=-"+mode; }
+	}
+
+	if (digit != 0) {
+		if (mode == "w") { msg_digit = ""; }	// 時計モードなら桁数の指定は不要である
+		else { msg_digit = "&DIGIT="+digit; }
+	} else {
+		msg_digit = "";
+	}
+
+	if (font == "") {
+		msg_font = "";
+	} else {
+		msg_font = "&FONT="+font;
+	}
+
+	if (img_width == "") {
+		msg_img_width = "";
+	} else {
+		msg_img_width = ' width="'+img_width+'"';
+	}
+
+	if (img_height == "") {
+		msg_img_height = "";
+	} else {
+		msg_img_height = ' height="'+img_height+'"';
+	}
+
+	if ((img_border == "") || (img_border == "0")) {	// border=0の時も指定不要
+		msg_img_border = "";
+	} else {
+		msg_img_border = ' border="'+img_border+'"';
+	}
+
+	if (img_alt == "") {
+		msg_img_alt = "";
+	} else {
+		msg_img_alt = ' alt="'+img_alt+'"';
+	}
+
+
+	msg  = '<IMG src="'+msg_path+msg_log+msg_mode+msg_digit+msg_font+'"'+msg_img_width+msg_img_height+msg_img_border+msg_img_alt+'>\n';
+
+
+	// 連絡欄を作る
+	if (mode == "a") { msg_ = "『総アクセス数』の画像を表示"; }
+	if (mode == "t") { msg_ = "『本日アクセス数』の画像を表示"; }
+	if (mode == "y") { msg_ = "『昨日アクセス数』の画像を表示"; }
+	if (mode == "w") { msg_ = "『時計』の画像を表示"; }
+	msg_ = msg_+"する場合のタグを表示しています。\n";
+	if (do_count == "n") { msg_ = msg_+"ただし、このカウンタはカウントアップ処理を行いません。\n" }
+
+	// 実際の表示
+	form.TEXTAREA.value = msg;
+	form.COMMENT.value = msg_;
+}
+//end-->
+</SCRIPT>
+
+</HEAD>
+<BODY bgcolor="#ffffff" text="#7e2828" link="#7726c8" alink="5c4fff" vlink="ff5959">
+<TABLE width="100%" cellpadding="0" cellspacing="0">
+  <TBODY>
+    <TR>
+      <TD><B><FONT size="+2">ぷちカウンタ V2.x用 呼び出しタグ自動生成ツール</FONT></B> ver. 0.2
+      <HR>
+      ぷちカウンタ2 を設置する上で一番大変なのは呼び出すためのタグを作る部分ですよね。<BR>
+      説明書を読んでもイマイチ分からない…？　という方も沢山居られるかも知れません。<BR>
+      そこで、画面上から必要事項のみを指定することにより、自動的に呼び出すためのタグが作られるツールを作ってみました。<BR>
+      <BR>
+      質問事項を入力し、ボタンを押すとすぐ下の欄にタグが表示されます。　それをコピーして、設置したいHTMLファイルに張り付けて下さい。<BR>
+      なお、最初から入力されている項目は、デフォルトの設定です。　ぷちかうんた2
+      をインストールしたままの状態ならこのままで動くはずです。<BR>
+      <BR>
+      利用に際し、ブラウザは極力新しいモノを使って下さい。<BR>
+      また、Navigatorでの不調を一件聞いております。　生粋のネスケ野郎な方も、できればIEで動かして下さい。すいません。<BR>
+      ちなみに私はInternet Explorer5.01とNetscapeNavigator4.08英語版を使って作りました。<BR><BR>
+      ※ digitの値がネスケではNULLになるバグを発見して下さったKiyohiko
+      Ito様、ありがとうございますm(__)m　修正しました
+      ※</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<FORM>
+<CENTER>
+<TABLE border="1" bgcolor="#ffdfe0" cellpadding="2" cellspacing="0" width="95%">
+  <TBODY>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7" nowrap>このカウンタに<BR>
+      カウントさせる</TH>
+      <TD colspan="2">YES<INPUT type="radio" name="do_count" value="y" checked> / NO<INPUT type="radio" name="do_count" value="n"></TD>
+      <TD>総合、今日、昨日…と一つのページにカウンタを複数表示させるような場合、実際にカウント処理を行わせるカウンタは代表の一つだけにして下さい。　<A href="readme.html#tips_nocount">(→参照)</A></TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">pc.cgi<BR>
+      までのパス</TH>
+      <TD colspan="2"><INPUT size="40" type="text" name="path" value="./cgi-bin/petit/pc.cgi"></TD>
+      <TD>呼び出すHTMLファイルから見た、pc.cgi
+      の位置を記して下さい。<BR>
+      http://～ で始まるURLでの指定も可能です。<BR>
+      この場合、他のホストにあるpc.cgiを呼び出すことができます。</TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">ログファイル名</TH>
+      <TD colspan="2"><INPUT size="20" type="text" name="logname" value="index">.log</TD>
+      <TD>記録する対象のログファイル名を指定して下さい。<BR>
+      拡張子の .log は必要ありません。</TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">表示モード</TH>
+      <TD colspan="3">総カウント数<INPUT type="radio" name="mode" value="a" checked> / 本日カウント数<INPUT type="radio" name="mode" value="t"> / 昨日カウント数<INPUT type="radio" name="mode" value="y"> / 時計<INPUT type="radio" name="mode" value="w"></TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">表示桁数</TH>
+      <TD colspan="2"><SELECT name="digit">
+      <OPTION value="0">0</OPTION>
+      <OPTION value="1">1</OPTION>
+      <OPTION value="2">2</OPTION>
+      <OPTION value="3">3</OPTION>
+      <OPTION value="4">4</OPTION>
+      <OPTION value="5" selected>5</OPTION>
+      <OPTION value="6">6</OPTION>
+      <OPTION value="7">7</OPTION>
+      <OPTION value="8">8</OPTION>
+      <OPTION value="9">9</OPTION>
+      <OPTION value="10">10</OPTION>
+      <OPTION value="11">11</OPTION>
+      <OPTION value="12">12</OPTION>
+      <OPTION value="13">13</OPTION>
+      <OPTION value="14">14</OPTION>
+      <OPTION value="15">15</OPTION>
+      <OPTION value="16">16</OPTION>
+      <OPTION value="17">17</OPTION>
+      <OPTION value="18">18</OPTION>
+      <OPTION value="19">19</OPTION>
+      <OPTION value="20">20</OPTION>
+      </SELECT></TD>
+      <TD>0 を指定すると省略したことになります(つまり、表示桁数を指定しない)</TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">フォント</TH>
+      <TD colspan="2"><INPUT size="20" type="text" name="font" value="fuksan"></TD>
+      <TD>指定しない場合、省略したことになります<BR>
+      (つまり、プログラム側で指定したデフォルトのフォントを使用する)</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE border="1" bgcolor="#ffdfe0" cellpadding="2" cellspacing="0" width="95%">
+  <TBODY>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7">画像横幅</TH>
+      <TD><INPUT size="3" type="text" name="img_width" value="60">　※省略可</TD>
+      <TH align="right" bgcolor="#ffc6c7">画像縦幅</TH>
+      <TD><INPUT size="3" type="text" name="img_height" value="16">　※省略可</TD>
+    </TR>
+    <TR>
+      <TH align="right" bgcolor="#ffc6c7" nowrap>画像の枠の太さ</TH>
+      <TD><INPUT size="3" type="text" name="img_border" value="0">　※省略可</TD>
+      <TH align="right" bgcolor="#ffc6c7">注釈文</TH>
+      <TD><INPUT size="20" type="text" name="img_alt" value="総アクセス数">　※省略可</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+<TABLE border="1" bgcolor="#ffdfe0" cellpadding="2" cellspacing="0" width="95%">
+  <TBODY>
+    <TR>
+      <TD colspan="4" align="center" bgcolor="#ffc6c7"><INPUT type="button" value="呼び出し用HTMLを表示させる" onclick="getdata(this.form)"></TD>
+    </TR>
+    <TR>
+      <TD colspan="4" align="center"><TEXTAREA rows="3" cols="80" name="TEXTAREA">ここに結果が表示されます。
+カット＆ペーストでHTMLに張り付けて下さい。
+</TEXTAREA></TD>
+    </TR>
+    <TR>
+      <TD colspan="4" align="center"><TEXTAREA rows="3" cols="80" name="COMMENT">連絡欄：
+</TEXTAREA></TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+</FORM>
+<HR>
+<DIV align=right><A href="http://yugen.main.jp/">&copy;2000 不可思議絵の具＠有限工房</A></DIV>
+</BODY>
+</HTML>
