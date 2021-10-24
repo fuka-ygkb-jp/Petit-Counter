@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<TITLE>ぷちカウンタ 呼び出しサンプル</TITLE>
+</HEAD>
+<BODY bgcolor=#ffffff font=#000000>
+
+●ぷちカウンタをテスト中●<BR>
+<BR>
+<P align="center"><B><U><FONT size="+2" color="#ff8000">■　基本的な使い方　■</FONT></U></B></P>
+
+総合カウンタ<BR>
+<IMG src="./pc.cgi?LOG=index&MODE=a&DIGIT=5" alt="総アクセス数" width="60" height="16" border="0">
+
+<BR><BR>
+
+本日カウンタ<BR>
+<IMG src="./pc.cgi?LOG=index&MODE=t&DIGIT=3" alt="本日アクセス数" width="36" height="16" border="0">
+
+<BR><BR>
+
+昨日カウンタ<BR>
+<IMG src="./pc.cgi?LOG=index&MODE=y&DIGIT=3" alt="昨日アクセス数" width="36" height="16" border="0">
+
+<BR><BR>
+
+ただいまの時刻は
+<IMG src="./pc.cgi?MODE=w" alt="時計" width="60" height="16" border="0">
+です。
+
+<BR><BR>
+
+<A HREF="./pc.cgi">ここを押すとログが表示されます。</A>
+
+<BR><BR>
+
+<UL>
+  <LI>表示桁数を指定することが出来ます。<BR>
+  &lt;IMG&gt;タグの画像サイズ指定と組み合わせるとより高速にカウンタが表示されます。<BR>
+  ALTを指定して注釈を付けるのももちろんアリです。
+</UL>
+
+
+<BR>
+
+
+<IMG src="./pc.cgi?LOG=index" width="1" height="1" border="0" alt="ふふふ…よく見つけたな！">
+<BR>
+▲このあたりにカウンターを隠してます(表示サイズを 1x1 にしている)。　ソースを開いて確認してみましょう。<BR>
+
+
+<BR><BR>
+
+
+<P align="center"><B><U><FONT size="+2" color="#ff8000">■　テクニックいろいろ　■</FONT></U></B></P>
+
+今日は素直なキミも : <IMG src="./pc.cgi?LOG=index&MODE=t&DIGIT=5&FONT=fuksan" alt="素直な今日" width="60" height="16" border="0"> / 昨日は「白！」って言えば「黒！」って言うお茶目さんだったね…フフフ : <IMG src="./pc.cgi?LOG=index&MODE=y&DIGIT=3&FONT=fuksan_" alt="ひねくれた昨日" width="36" height="16" border="0">
+
+<UL>
+  <LI>フォントを個別に変えるのもアリだよ。
+</UL>
+
+
+<IMG src="./pc.cgi?LOG=index&MODE=a&DIGIT=5&FONT=fuksan" alt="総アクセス数" width="60" height="16" border="3">
+
+<UL>
+  <LI>IMGタグの枠線を使えば、一応枠付きカウンタの真似は出来る。<BR>
+  どうしても綺麗な枠が欲しければ、枠付きのカウンタ用GIFを使えばいいだけの話。(探せばちゃんとあります)
+</UL>
+
+
+<BR><BR>
+
+
+<B><FONT color="#ff8000">同じフォントでもサイズの指定で結構変わってくる。</FONT></B><BR><BR>
+
+<P><B><FONT size="+3">どっひゃ～！</FONT></B><IMG src="./pc.cgi?LOG=index&MODE=a&DIGIT=5&FONT=fuksan" alt="サイズごまかし例１" width="120" height="32" border="0"> <B><FONT size="+3">人も来てくれてるの～っ！？</FONT></B></P>
+
+<UL>
+  <LI>どかんと表示させて目立たせるも良し
+</UL>
+
+
+<IMG src="./pc.cgi?LOG=index&MODE=a&DIGIT=5&FONT=fuksan" alt="all" width="30" height="8" border="0">/<IMG src="./pc.cgi?LOG=index&MODE=t&DIGIT=3&FONT=fuksan" alt="today" width="18" height="8" border="0">/<IMG src="./pc.cgi?LOG=index&MODE=y&DIGIT=3&FONT=fuksan" alt="yesterday" width="18" height="8" border="0">
+<UL>
+  <LI>ワザとちっこくやってみると、それが結構ハマったりして
+  <LI>応用してみましょう。
+
+  <TABLE border="0" width="70%" cellpadding="1" cellspacing="0" bgcolor="#000000">
+    <TBODY>
+      <TR>
+        <TD colspan="2" width="99%"><FONT face="Comic Sans MS" color="#ffffff"><B>+++ welcome to my DiGiCampuS +++</B></FONT></TD>
+        <TD width="1%" nowrap valign="middle"><FONT color="#ffffff" size="-2">
+ ゼンブ:<IMG src="./pc.cgi?LOG=index&MODE=a&FONT=fuksan_&DIGIT=5" alt="all" width="30" height="8" border="0" hspace="0" vspace="0" align="middle">
+ キョウ:<IMG src="./pc.cgi?LOG=index&MODE=t&FONT=fuksan_&DIGIT=5" alt="today" width="30" height="8" border="0" hspace="0" vspace="0" align="middle">
+ キノウ:<IMG src="./pc.cgi?LOG=index&MODE=y&FONT=fuksan_&DIGIT=5" alt="yesterday" width="30" height="8" border="0" hspace="0" vspace="0" align="middle">
+ ジカン:<IMG src="./pc.cgi?MODE=w&FONT=fuksan_" alt="time" width="30" height="8" border="0" hspace="0" vspace="0" align="middle">
+        </FONT></TD>
+      </TR>
+      <TR>
+        <TD colspan="3">
+        <TABLE border="0" cellpadding="0" cellspacing="0" bgcolor="#ffffff" width="100%">
+          <TBODY>
+            <TR>
+              <TD><FONT size="-2">イラッシャイマセ。</FONT><BR>
+              <FONT size="-2">小さいフォントにカタカナ多用でコジャレ系のデ・キ・ア・ガ・リ☆</FONT></TD>
+            </TR>
+          </TBODY>
+        </TABLE>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
+
+</UL>
+</BODY>
+</HTML>

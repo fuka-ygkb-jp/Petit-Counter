@@ -1,0 +1,888 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+<META http-equiv="Content-Style-Type" content="text/css">
+<LINK rel="stylesheet" type="text/css" href="def.css">
+<TITLE>ぷちカウンタ / 取扱説明書</TITLE>
+<STYLE type="text/css"><!--
+	A:HOVER		{text-decoration:underline;}
+	A:VISITED	{color : #ff5959; text-decoration:none; font-weight:bold;}
+	A:LINK		{color : #7726c8; text-decoration:none; font-weight:bold;}
+	A:ACTIVE	{color : #5c4fff; text-decoration:none; font-weight:bold;}
+	BODY		{font-family:Verdana,Arial;}
+	TD			{line-height:150%;}
+	.Pre		{text-decoration:none; line-height:100%; vertical-align:baseline;}
+--></STYLE>
+</HEAD>
+<BODY bgcolor="#ffffff" text="#7e2828" link="#7726c8" alink="5c4fff" vlink="ff5959"><FONT size="+3"><B>ぷちカウンタ取扱説明書</B></FONT>
+<HR>
+<DIV align="right">高機能カウンタ - ぷちカウンタ</DIV>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1">■もくじ</FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">この説明書では ぷちカウンタ の概要やインストールについての説明をします。
+      <BR>
+      <BR>
+      <CENTER>
+      <TABLE cellpadding="0" cellspacing="0" border="0">
+        <TBODY>
+          <TR>
+            <TD valign="top">
+            <UL>
+              <LI><FONT size="+1"><A href="#gaiyou">概要</A></FONT>
+              <LI><FONT size="+1"><A href="#kankyou">動作環境</A></FONT>
+              <LI><FONT size="+1"><A href="#dounyuu">導入</A></FONT>
+              <LI><FONT size="+1"><A href="#settei">プログラム側の設定・使用法</A></FONT>
+              <LI><FONT size="+1"><A href="#jyunbi">ログファイルの準備</A></FONT>
+              <LI><FONT size="+1"><A href="#usage">実際の使用法</A></FONT>
+              <LI><FONT size="+1"><A href="#sengen">宣言</A></FONT>
+              <LI><FONT size="+1"><A href="#tasya">多謝</A></FONT>
+              <LI><FONT size="+1"><A href="#saigoni">最後に</A></FONT>
+            </UL>
+            </TD>
+            <TD valign="top">
+            <UL>
+              <LI><FONT size="+1">Tips</FONT>
+              <UL>
+                <LI><FONT size="+1"><A href="#tips_trouble">トラブルシューティング</A></FONT>
+                <LI><FONT size="+1"><A href="#tips_nyuusyu">カウンタ用画像の入手場所</A></FONT>
+                <LI><FONT size="+1"><A href="#tips_seigen">カウンタ用画像の制限</A></FONT>
+                <LI><A href="#tips_watch"><FONT size="+1">時計機能を使う場合の注意</FONT></A>
+                <LI><FONT size="+1"><A href="#tips_henkou">カウント数の変更方法</A></FONT>
+                </UL>
+              
+            </UL>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      <B><BR>
+      ■はじめに</B><BR>
+      このスクリプトは、CGI/SSI設置の知識がある程度ある方を対象にしています。<BR>
+      申し訳ありませんが、この説明書を読んでもチンプンカンプンだった方は使用をご遠慮下さい。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="gaiyou">■ 概要</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">「ぷちカウンタ」は、 perl 言語で書かれた
+      IMG タグで呼び出すタイプのカウンタで、efStat(…の中のfcount.cgi)
+      の弟分になります。<BR>
+      兄貴分の efStat は高機能ではありますが、設置が難しいという難点があります。<BR>
+      「アクセスログは他の方法で記録するから、カウントだけしてくれればいいんだ」<BR>
+      「そもそもアクセスログなんて要らない。　純粋にカウンタだけが欲しい」<BR>
+      という方もおられるでしょう。　そんな方に使っていただきたく、作成いたしました。</TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0"><B><FONT size="+1"><U>ぷちカウンタの特徴</U></FONT></B>
+      
+      <UL>
+        <LI><B><FONT size="+1">操作や設置が簡単<BR>
+        </FONT></B>使い手の労力を出来る限り軽減しよう、というのが基本コンセプトです。<BR>
+        普通に使う分には設定ナシで即使えるように工夫してあります。<BR>
+        <BR>
+        
+        <LI><B><FONT size="+1">ページ毎にログを記録することができる</FONT></B><BR>
+        一つのスクリプトで複数のログファイルを同時に記録することが出来ます。<BR>
+        <BR>
+        
+        <LI><B><FONT size="+1">同じ人が再読込してもカウントしない</FONT></B><BR>
+        キリ番を取りたがる人、イタズラをする人に少しだけ効果があります。<BR>
+        直前の訪問者のIPアドレスと、最新の訪問者のIPアドレスを比較することによって機能を実現しています。<BR>
+        クッキーを調べるタイプに比べると遙かにスマートな方法です。<BR>
+        ただし、最後に記録された IP アドレスと比較していますので、IP
+        がコロコロ変わったりするプロキシ(大学などに多い)には効果がありません。(ただし、そういう所は殆どありません)<BR>
+        <BR>
+        
+        <LI><B><FONT size="+1">カウント数の集計結果を簡単に表示してくれる</FONT></B><BR>
+        オプション無しで起動すると、全てのログの状態、集計結果のランキングを表示してくれます。<BR>
+        <BR>
+        
+        <LI><B>おまけ：時計機能も付けました</B><BR>
+        単純なので役に立たないとは思いますが、まあ、ページの飾りにでも使って下さい(^^；
+      </UL>
+      </TD>
+    </TR>
+    </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="kankyou">■ 動作環境</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">UNIX系OSなら多分なんでも行けると思います。<BR>
+      厳密には truncate() 関数と flock() 関数をサポートした
+      Perl が必要です。　PERL4で書かれています。(…そのハズです)<BR>
+      <B>Windows系でも動作する筈ですが、<FONT size="+1">サポート外</FONT>とさせていただきます。</B>(腕に自信のある人は勝手に弄って下さい)<BR>
+      <BR>
+      (動作確認は<BR>
+      　　　FreeBSD 2.2.7R + Apache + jperl5.004_04-980303
+      / perl4.0 Rev.1.7.2.2 Patch level 36<BR>
+      　　　Red Hat Linux release 4.2 + Apache
+      + perl4.0 Rev.4.0.1.8 Patch level 36<BR>
+      にて行いました。)<BR>
+      <BR>
+      <B>CGI 専用です。</B>　CGI が使用可能になっているか、プロバイダ側サーバに
+      Perl がインストールされているかをご確認下さい。</TD>
+    </TR>
+    </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="dounyuu">■ 導入</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0"><B>☆解凍☆</B>
+      <BLOCKQUOTE>petit.lzh を解凍します。<BR>
+      こんな感じでファイルが詰まっているはずです。<BR>
+      <BR>
+      <TABLE border="1" cellpadding="2" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TH nowrap>&lt;ぷちカウンタディレクトリ&gt;</TH>
+            <TH nowrap>[プログラム本体や、周辺ツールを置きます]</TH>
+          </TR>
+          <TR>
+            <TD>pc.cgi</TD>
+            <TD>ぷちカウンタ本体</TD>
+          </TR>
+          <TR>
+            <TD>ps.pl</TD>
+            <TD>ぷちすたっと - ぷちカウンタ用アドイン<BR>
+            カウント数の集計を担当します。</TD>
+          </TR>
+          <TR>
+            <TD>gifcat.pl</TD>
+            <TD>GIF 画像連結ライブラリ<BR>
+            &copy;s-hasei</TD>
+          </TR>
+          <TR>
+            <TD>0.gif / 1.gif / e.gif / b.gif</TD>
+            <TD>ぷちカウンタが使う画像(消さないで！)</TD>
+          </TR>
+          <TR>
+            <TD>readme.html</TD>
+            <TD>説明書(このファイル)</TD>
+          </TR>
+          <TR>
+            <TD><A href="sample.html">sample.html</A></TD>
+            <TD>呼び出しサンプル<BR>
+            (具体的な呼び出し方・テクニックを書いています)</TD>
+          </TR>
+          <TR>
+            <TD colspan="2" align="right">
+            <TABLE border="1" cellpadding="2" cellspacing="0" width="90%">
+              <TBODY>
+                <TR>
+                  <TH nowrap>&lt;logディレクトリ&gt;</TH>
+                  <TH nowrap>[ログファイルを格納します]</TH>
+                </TR>
+                <TR>
+                  <TD>index.log</TD>
+                  <TD>サンプルのログ。これで練習するといいでしょう</TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+            </TD>
+          </TR>
+          <TR>
+            <TD colspan="2" align="right">
+            <TABLE border="1" cellpadding="2" cellspacing="0" width="90%">
+              <TBODY>
+                <TR>
+                  <TH nowrap>&lt;imageディレクトリ&gt;</TH>
+                  <TH nowrap>[カウンタ用GIFファイルを格納します]</TH>
+                </TR>
+                <TR>
+                  <TD>&lt;fuksan&gt;</TD>
+                  <TD>サンプル。　白地に黒字の丸っこい書体。<BR>
+                  白い背景のページに馴染みます。<BR>
+                  &copy;不可思議絵の具</TD>
+                </TR>
+                <TR>
+                  <TD>&lt;fuksan_&gt;</TD>
+                  <TD>サンプル。　fuksanを白黒反転させました。<BR>
+                  黒い背景のページに馴染みます。<BR>
+                  &copy;不可思議絵の具</TD>
+                </TR>
+                <TR>
+                  <TD colspan="2">※その他にも皆さんから特別に作っていただいたサンプルがありますが、そちらは「有限工房」にて入手して下さい。</TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <BR>
+      これらのファイルが出てきましたか？<BR>
+      確認したら、次に進みましょう。<BR>
+      </BLOCKQUOTE>
+      <BR>
+      <BR>
+      <B>☆パーミッションの設定・ディレクトリ構成☆</B>
+      <BLOCKQUOTE>出てきたファイルをサーバ側の任意のディレクトリ(※)へコピーします。<BR>
+      そのとき、ディレクトリ名は petit が適当でしょう。<BR>
+      (※…WindowsやMacで言うところの「フォルダ」です。　以後、UNIXでの呼び方に合わせ「ディレクトリ」とします)<BR>
+      <BR>
+      プロバイダから「CGI スクリプトは cgi-bin
+      以下に置きなさい」など、スクリプトの置き場所を指定されているときは、そのディレクトリの下に
+      petit ディレクトリを作って下さい。<BR>
+      <BR>
+      最終的には、次の様になるようにします。<BR>
+      <TABLE cellpadding="0" cellspacing="0" border="1" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TD><B>＜標準のディレクトリ構成＞</B></TD>
+          </TR>
+          <TR>
+            <TD style="line-height : 100%;">
+<PRE>                                      (パーミッション)
+/cgi-bin                              (705) drwx---r-x  [CGIスクリプト格納ディレクトリ]
+   |--/petit                          (705) drwx---r-x  [ぷちカウンタ格納ディレクトリ]
+         |-- pc.cgi                   (705) -rwx---r-x  (ぷちカウンタ本体)
+         |-- ps.pl
+         |-- gifcat.pl
+         |-- 0.gif
+         |-- 1.gif
+         |-- e.gif
+         |-- b.gif
+         |
+         |-- /log                     (705) drwx---r-x  [ログ用ディレクトリ]
+         |     |-- index.log          (606) -rw----rw-  (ログファイル)
+         |     |       ：
+         |
+         +-- /image                   (705) drwx---r-x  [カウンタ画像用ディレクトリ]
+               |-- /fuksan            (705) drwx---r-x  [フォントごとのディレクトリ]
+               |      |-- 0fuksan.gif
+               |      |       ：
+               |      +-- 9fuksan.gif
+               |
+               |-- /fuksan_
+               |      ：
+
+()内はパーミッションの数値</PRE>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      <BR>
+      <TABLE border="1" cellpadding="1" cellspacing="0" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TD><B>備考</B></TD>
+          </TR>
+          <TR>
+            <TD>パーミッションを表記していない物に関しては殆どのサーバでデフォルトの
+            644(rw-r--r--) でOKです。<BR>
+            セキュリティの観点から言えば
+            604(rw----r--)にしておけば言うこと無いです。<BR>
+            <BR>
+            <B>なお、サーバによってはパーミッションが 705
+            では動作しないところがあります。</B><BR>
+            その場合は 705(rwx---r-x) を
+            755(rwxr-xr-x)
+            に読み替えて下さい。<BR>
+            <BR>
+            ミルトクラブなど、<B>CGI が設置したユーザの権限で動作するサーバ</B>に関しては<BR>
+            705(rwx---r-x) を 700(rwx------)に<BR>
+            606(-rw----rw-) を 600(rw-------)に<BR>
+            読み替えて下さい。<BR>
+            <BR>
+            その他、詳しい情報については入会しているプロバイダのHowToページなどを参照下さい。</TD>
+          </TR>
+          <TR>
+            <TH><FONT color="#ff0000">注意(必読！)</FONT></TH>
+          </TR>
+          <TR>
+            <TD>画像ファイル以外は「アスキーモード」で転送して下さい。<BR>
+            普通どおりに転送してしまうと大抵「バイナリモード」で転送されてしまい、思わぬ誤動作の原因になります。<BR>
+            アスキーモードでの転送の仕方・パーミッションの変更の仕方は各
+            ftp クライアントの説明書を参照下さい。</TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </BLOCKQUOTE>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="settei">■ プログラム側の設定・使用法</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">
+      <UL>
+        <LI><B>perl のパス<BR>
+        </B>pc.cgi の一行目のPerlへのパスををお使いのプロバイダに合わせて書き換えます。<BR>
+        もし、perlのパスが /usr/bin/perl
+        だったら、<BR>
+        <BLOCKQUOTE><B>#!/usr/bin/perl</B></BLOCKQUOTE>
+        と書き換えて下さい。　頭の#!は消してはいけません。<BR>
+        <BR>
+        
+        <LI><B>ログファイルを格納したディレクトリ<BR>
+        </B>ぷちカウンタ 一式をインストールしたディレクトリから見た相対パスで指定します。　(デフォルトは
+        log/ )<BR>
+        他人にブラウザからログを直接読まれたくないという人はここを変更します。<BR>
+        (ただし、ログ用ディレクトリは ぷちカウンタ
+        をインストールしたディレクトリの中(配下)になければなりません)<BR>
+        特別な事情がなければ変更せずにお使い下さい。<BR>
+        <B><A href="readme.html">readme.html</A> の通りにインストールしたのなら変更しないで下さい。</B><BR>
+        <BR>
+        
+        <LI><B>カウンタのイメージを格納したディレクトリ<BR>
+        </B>ぷちカウンタ一式をインストールしたディレクトリから見た相対パスで指定します。<BR>
+        (デフォルトは image )<BR>
+        都合上他のディレクトリにカウンタ用イメージを入れた場合はここを変更します。<BR>
+        (ただし、カウンタ画像用ディレクトリは
+        ぷちカウンタ
+        をインストールしたディレクトリの中(配下)になければなりません)<BR>
+        特別な事情がなければ変更せずにお使い下さい。<BR>
+        <B><A href="readme.html">readme.html</A> の通りにインストールしたのなら変更しないで下さい。<BR>
+        </B><BR>
+        <A href="#tips_nyuusyu">Digit Maniaなどのサイトからカウンタのイメージファイルをダウンロード</A>してきて解凍すると、フォント名の付いたディレクトリが出来るはずです。<BR>
+        そのディレクトリをそのままこの、イメージ格納用ディレクトリ(何も変更していないなら
+        image )の中にコピーして下さい。　そうしないと上手く動作しません。<BR>
+        <BR>
+        <B>　＜例＞</B><BR>
+        　fuksan.zip を解凍したら、 fuksan
+        というディレクトリが出来ます。<BR>
+        　それをそのままココで設定したディレクトリの中に入れて下さい。<BR>
+        <BR>
+        
+        <LI><B>カウンタのイメージの名前<BR>
+        </B>1.<B> </B>でコピーしたディレクトリの名前を入力して下さい。<BR>
+        ここでは fuksan ですね。<BR>
+        ここで指定する名前はデフォルトの指定となり、呼び出し時にフォント指定をしなかった場合、ここで指定されたフォントが使用されます。
+      </UL>
+      
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="jyunbi">■ ログファイルの準備</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">プログラム側の設定が済んだら、次はログファイルの準備です。
+      <OL>
+        <LI><B>log ディレクトリの中に空のファイルを作って下さい。</B><BR>
+        Windowsなら右クリックして「新規作成」→「テキスト文書」でファイルが出来ますよね。<BR>
+        それを [好きな名前].log に変更して下さい。　(拡張子は必ず
+        <B>.log</B> で！)<BR>
+        (UNIX だったら [touch [好きな名前].log] で一発)<BR>
+        例えば index.html を計測したいのであれば
+        index.log という名前が良いでしょう。　link.html
+        なら link.log とか。　自分が分かりやすいものを。
+        <BR>
+        
+        <LI><B>作ったファイルをftpでサーバにアップロードします。</B><BR>
+        必ず「アスキーモード」でアップロードして下さい。<BR>
+        
+        <LI><B>パーミッションを 606(-rw----rw-) にします。</B><BR>
+        これを忘れるとプログラムがログを書き込めず、カウントしてくれません。<BR>
+        パーミッションに関する詳しい説明は <A href="readme.html#dounyuu">readme.html</A> を読んで下さい。
+      </OL>
+      <BR>
+      これで準備は完了です。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="usage">■ 実際の使用法</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">ちょっと戸惑うかも知れませんけど、まず始めに呼び出しの書式を示しておきます。
+      <BR>
+      ややこしそうだけど、実際は簡単ですよ(^^)
+      <BR>
+      <BR>
+      <DIV align="right">
+      <TABLE border="1" cellpadding="4" cellspacing="0" width="90%" bgcolor="#ffffff">
+        <TBODY>
+          <TR>
+            <TD colspan="3"><B>【書式】</B><BR>
+            <B>pc.cgi?</B><FONT color="#353571"><B>LOG=</B><B><I>[ログファイル名]</I></B></FONT><B>&amp;<FONT color="#a600a2">MODE=<I>[表示モード]</I></FONT>&amp;<FONT color="#a60400">DIGIT=<I>[表示桁数]</I></FONT>&amp;<FONT color="#376f6f">FONT=<I>[フォント指定]</I></FONT></B><BR>
+            <BR>
+            ※すべてのオプションに順番は関係ありません。<BR>
+            <B>
+            ※オプションを何も付けずに起動するとログの集計結果を表示します。</B></TD>
+          </TR>
+          <TR>
+            <TD><B><I><FONT color="#353571">[ログファイル名]</FONT></I></B><BR>
+            ※時計機能の場合のみ省略可</TD>
+            <TD colspan="2">カウントさせるログファイルの名前を指定します。<BR>
+            <B>拡張子は指定する必要がありません。</B>　(というか、指定するとエラーになります)</TD>
+          </TR>
+          <TR>
+            <TD nowrap rowspan="6"><B><I><FONT color="#a600a2">[表示モード]</FONT></I></B><BR>
+            ※省略可</TD>
+            <TD colspan="2">どういうカウンタを表示させるかを指定します。<B><BR>
+            <FONT color="#a600a2">a , t , y , w</FONT></B> が使用できます。<BR>
+            省略すると強制的に総カウント数が表示されます。</TD>
+          </TR>
+          <TR>
+            <TH colspan="2">それぞれの意味</TH>
+          </TR>
+          <TR>
+            <TH><FONT color="#a600a2">a</FONT></TH>
+            <TD>総カウント数を表示 (<B><U>A</U></B>ll)</TD>
+          </TR>
+          <TR>
+            <TH><FONT color="#a600a2">t</FONT></TH>
+            <TD>本日カウント数を表示 (<B><U>T</U></B>oday)</TD>
+          </TR>
+          <TR>
+            <TH><FONT color="#a600a2">y</FONT></TH>
+            <TD>昨日カウント数を表示 (<B><U>Y</U></B>esterday)</TD>
+          </TR>
+          <TR>
+            <TH><FONT color="#a600a2">w</FONT></TH>
+            <TD>24時間形式の時計を表示させる (<B><U>W</U></B>atch)<BR>
+            (→<A href="#tips_watch">時計機能を使うときの注意</A>)</TD>
+          </TR>
+          <TR>
+            <TD nowrap><B><I><FONT color="#a60400">[表示桁数]</FONT></I></B><BR>
+            ※省略可</TD>
+            <TD colspan="2">カウンターの数字を何桁で表示させるか指定します。<BR>
+            <B><FONT color="#a60400">0 から 9 まで</FONT></B>の値が指定できます。<BR>
+            (0 は実質的にオプションを省略したことと同じ意味になります)<BR>
+            9桁以上を指定するとエラーになります。<BR>
+            省略すると桁数が足りないときに
+            0 を付け足さなくなります。</TD>
+          </TR>
+          <TR>
+            <TD><B><I><FONT color="#376f6f">[フォント指定]</FONT></I></B><BR>
+            ※省略可</TD>
+            <TD colspan="2">デフォルトで指定したフォント(カウンタ用画像の名前)を任意に変更させるにはこの項目を追加します。<BR>
+            省略するとプログラムの設定項目で指定した画像が使用されます。</TD>
+          </TR>
+          </TBODY>
+      </TABLE>
+      </DIV>
+      <BR>
+      <B><U>《まずは動くかどうか試してみましょう》</U></B><BR>
+      いきなりHTMLに組み込んだりせずに、動作するのを確認してからHTMLに組み込むのが賢いやり方です。<BR>
+      ブラウザのURL入力欄に<BR>
+      <BLOCKQUOTE>http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571">LOG=<B>index</B></FONT><BR>
+      （ページのあるサーバが ??? で、あなたのユーザ名が
+      username、cgi-bin というディレクトリの中に
+      ぷちカウンタ を置いている場合）</BLOCKQUOTE>
+      と打ち込んでみましょう。　（もちろん
+      <FONT color="#353571"><B>index</B></FONT> は同梱の <FONT color="#353571"><B>index.log</B></FONT> の事ですネ）<BR>
+      あなたが既に他にログファイルを作っているのなら、その名前に置き換えて下さい。<BR>
+      上のように試して、数字が表示されましたか？　上手く行かなければ<A href="#tips_trouble">トラブルシューティング</A>をお読み下さい。<BR>
+      上手く行ったなら、もう怖い物はありません。　ジャンジャン応用してみましょう。　実例を書いておきます。
+      <BLOCKQUOTE>
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571">LOG=<B>index</B></FONT>&amp;<FONT color="#a60400">DIGIT=<B>5</B></FONT><BR>
+      (<FONT color="#353571"><B>index.log</B></FONT> をカウント。表示桁数は <FONT color="#a60400"><B>5</B></FONT> 桁)
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571">LOG=<B>index</B></FONT>&amp;<FONT color="#376f6f">FONT=<B>fuksan_</B></FONT><BR>
+      (<FONT color="#353571"><B>index.log</B></FONT> をカウント。表示フォントに <FONT color="#376f6f"><B>fuksan_</B></FONT> を指定。)
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571">LOG=<B>index</B></FONT>&amp;<FONT color="#a60400">DIGIT=<B>5</B></FONT>&amp;<FONT color="#376f6f">FONT=<B>fuksan_</B></FONT><BR>
+      (<FONT color="#353571"><B>index.log</B></FONT> をカウント。表示桁数は <FONT color="#a60400"><B>5</B></FONT> 桁。表示フォントに <FONT color="#376f6f"><B>fuksan_</B></FONT> を指定。)
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571"><FONT color="#376f6f">FONT=<B>fuksan_</B></FONT></FONT>&amp;<FONT color="#353571">LOG=<B>index</B></FONT>&amp;<FONT color="#a60400">DIGIT=<B>5</B></FONT><BR>
+      もちろん、バラバラに指定したってOK。　意味は上と同じ。
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#353571">LOG=<B>index</B></FONT>&amp;<FONT color="#a600a2">MODE=</FONT><B><FONT color="#a600a2">y</FONT></B><BR>
+      (<FONT color="#353571"><B>index.log</B></FONT> をカウント。<FONT color="#a600a2"><B>昨日のカウント数</B></FONT>を表示させます。)
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#a600a2">MODE=</FONT><B><FONT color="#a600a2">w</FONT></B><BR>
+      (時計を表示させます。)
+      <HR>
+      http://???/~username/cgi-bin/petit/pc.cgi?<FONT color="#a600a2">MODE=</FONT><B><FONT color="#a600a2">w</FONT></B>&amp;<FONT color="#376f6f">FONT=<B>fdc</B></FONT>
+      <BR>
+      (時計を <FONT color="#376f6f"><B>fdc</B></FONT> フォント(同梱していません)で表示させます。)<BR>
+      <HR>
+      </BLOCKQUOTE>
+      など、オプションを色々と組み合わせて反応を見てみましょう。<BR>
+      （ちなみに、この時にカウント数が増えないのは正常な動作です）<BR>
+      なお、書式の欄でも書きましたが、<B>全てのオプションの順番はバラバラでも構いません。</B><BR>
+      ここまで来れば、ぷちカウンタを使いこなせたも同然です(^^)<BR>
+      <BR>
+      <BR>
+      <BR>
+      <B><U>《実際の導入例》</U></B><BR>
+      カウンターを表示させたい部分に、<BR>
+      <BLOCKQUOTE>
+      &lt;IMG src=&quot;./cgi-bin/petit/pc.cgi?LOG=index&amp;MODE=a&amp;DIGIT=5&quot;
+      alt=&quot;総アクセス数&quot; width=&quot;60&quot;
+      height=&quot;16&quot; border=&quot;0&quot;&gt;</BLOCKQUOTE>
+      という感じのタグを埋め込みます。<BR>
+      詳しくは <A href="sample.html">sample.html</A> のHTMLソースを見て下さい。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_trouble">■ tips / トラブルシューティング</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">
+      <UL>
+        <LI><B>エラーなどは特に表示されないが、ログが記録されていない<BR>
+        </B>ログファイルのパーミッションは (606) ですか？<BR>
+        <BR>
+        
+        <LI><B>“e0000”という画像が表示された</B><BR>
+        ログファイルを開くことが出来ませんでした。<BR>
+        ファイル名の指定に誤りがないか、パーミッションは正しいかを確認して下さい。<BR>
+        <BR>
+        
+        <LI><B>“e0001”という画像が表示された</B><BR>
+        桁数の指定が間違っています。　9桁までにして下さい。<BR>
+        <BR>
+        <LI><B>画像が表示されない(破れたアイコンが表示される)</B><BR>
+        <BR>
+        <OL>
+          <LI><B>pc.cgi が何らかの理由で実行されなかった</B><BR>
+          <OL>
+            <LI><B>pc.cgi に実行権が与えられていない</B><BR>
+            パーミッションは 705 にしましたか？<BR>
+            <BR>
+            
+            <LI><B>pc.cgi が壊れている</B><BR>
+            <OL>
+              <LI>pc.cgi をバイナリモードで送っていませんか？
+              <LI>極めてまれですが、色んなゴタゴタでファイルが損傷しているかも知れません。　ダウンロードしなおしてみましょう。
+            </OL>
+            <BR>
+            
+            <LI><B>プログラムのバグ・サーバと相性が悪い</B><BR>
+            どうしても駄目なようなら作者まで<A href="mailto:fuka@tech.millto.net?Subject=[petit] 問い合わせ">メール</A>下さい。<BR>
+            <BR>
+            
+            <LI><B>gifcat.pl を呼び出せなかった</B>
+            <OL>
+              <LI>gifcat.pl が壊れている
+              <OL>
+                <LI>gifcat.pl をバイナリモードで送っていませんか？
+                <LI>色々試したのにやっぱりおかしい、という場合は<BR>
+                <A href="http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt">http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt</A><BR>
+                にて、ダウンロードし直して下さい。
+              </OL>
+              
+              <LI>パーミッションは正しいですか？<BR>
+              少なくとも「他人」が「読み込み可能」になっていないといけません。
+            </OL>
+            
+          </OL>
+          <BR>
+          
+          <LI><B>カウンタ用の画像に何か問題がある<BR>
+          </B>画像を読み込むことができなかったようです。　画像の名前の指定は間違っていませんか？<BR>
+          または、画像自体に問題があるのかも知れません。　<A href="#tips_seigen">詳しくはこちらをご覧下さい。</A><BR>
+          <BR>
+          
+        </OL>
+        
+        <LI><B>ERROR という文字が表示される(URL入力欄から直にカウンタを呼び出した場合)</B><BR>
+        カウンタ用の画像に何か問題があるようです。　<A href="#tips_seigen">詳しくはこちらをご覧下さい。</A><BR>
+        
+        <LI><B>カウンタの数字が最初の一桁しか表示されない</B><BR>
+        ブラウザが古いとこうなります。<BR>
+        実はあのグラフィックはアニメGIFとして表示されています。　よって、アニメGIFに対応したブラウザが必要です。<BR>
+        これは gifcat.pl の仕様です。　gifcat.pl
+        を使う以上、これはどうしようもありません。<BR>
+        ただし、他の方法を採るとUNISYS社の権利に抵触し、私が多額(?)の使用料金を支払わねばなりません。<BR>
+        ですから、今後もずっとアニメGIF未対応のブラウザに対応することはないでしょう。
+      </UL>
+      <BR>
+      <BR>
+      <B>どーしてもダメ。　っていうか作った奴死なす。　時間返せ。</B><BR>
+      極力頑張って下さい(⌒ω⌒；<BR>
+      大概は設置した人のミスです。<BR>
+      が、どうしても駄目な場合は、入会しているプロバイダの名前と、ぷちカウンタ
+      のバージョン番号を添えてサポート掲示板にて報告下さい。<BR>
+      <BR>
+      その前に、<A href="http://tech.millto.net/~fuka/tips/how2check.html">CGI/SSI が上手く動かない場合の対処法(汎用)
+      </A>を読むのも忘れないで下さいね。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_nyuusyu">■ tips / カウンタ用画像の入手場所</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">「ぷちカウンタ」ではカウンタの表示の為にカウンタ用画像を必要とします。<BR>
+      一応サンプルの画像が同梱されていますが、気に入らない人は自分のサイトのデザインに合う物を自力で別途入手して下さい。<BR>
+      一緒に入れておきたいのは山々なんですが、カウンタ用の画像にはそれぞれの作者サンの著作権があるので勝手に入れちゃいけないんです。<BR>
+      <BR>
+      カウンタ用の画像ファイルはココで入手すると良いでしょう。
+      <CENTER>
+      <TABLE>
+        <TBODY>
+          <TR>
+            <TD><B>ここ掘れ！</B></TD>
+            <TD><A href="http://www.kiwi-us.com/~hagi/digit/index-j.html">http://www.kiwi-us.com/~hagi/digit/index-j.html</A></TD>
+          </TR>
+          <TR>
+            <TD><B>Digit Mania</B></TD>
+            <TD><A href="http://www.digitmania.holowww.com/">http://www.digitmania.holowww.com/</A></TD>
+          </TR>
+          <TR>
+            <TD><B>なまらファクトリー内<BR>
+            カウンター数字コーナー</B></TD>
+            <TD><A href="http://www10.big.or.jp/~gayou/nmr/nmrfacn/nmrfacn.html">http://www10.big.or.jp/~gayou/nmr/nmrfacn/nmrfacn.html</A></TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      特に、なまらファクトリーのフォントは可愛くて実用性があってお奨め。<BR>
+      なお、私のサイトにもユーザさんに寄贈していただいたフォントがいくつか用意してあります。<BR>
+      これらは使われた実績がありますので、確実です。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_seigen">■ tips / カウンタ用画像の制限</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">GIF画像連結ライブラリの gifcat.pl の制限により、使用できる画像には以下の制限があります。<BR>
+      自分でカウンタ用画像をこしらえる人などは特に注意して下さい。<BR>
+      <BR>
+      また、 pc.cgi の呼び出し方は間違っていないはずなのに、上手く行かない場合はこれらの可能性も疑ってみて下さい。
+      <UL>
+        <LI>カウンタ用画像にアニメGIFは使用できません。
+        <LI>アニメGIF対応のブラウザでなければ、最初の画像しか表示されません。
+        <LI>縦幅、横幅の異なるGIFファイルは使用できません。<BR>
+        (※gifcat.pl の1.55版より横幅の異なるGIFも連結できるようになりましたが、この可能性も疑って下さい)
+        <LI>全てのGIFファイルはパレットを統一させて下さい。<BR>
+        一つでもパレットが違うと正常に表示されません。<BR>
+        <A href="http://www.digitalpad.co.jp/~takechin/">Susie (by たけちん氏)</A> で、作ったファイルを連結させてみて、色が化けたりしないか試してみる方法が一番手軽でしょう。
+      </UL>
+      </TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_seigen"></A></FONT></B><A name="tips_watch"><B><FONT size="+1">■ tips / 時計機能を使う場合の注意</FONT></B></A></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">この時計は24時間表記でしか表示できません。<BR>
+      数字以外に : (コロン)を使います。　時計機能を使う場合は
+      : の画像を用意して下さい。<BR>
+      必ず : の画像は c[フォント名].gif というファイル名にして下さい。(これはカウンタ画像界(?)標準の約束事です)<BR>
+      例えば fuksan というフォントであれば、
+      cfuksan.gif。　fdc
+      というフォントであれば cfdc.gif という具合にして下さい。<BR>
+      これを守らないと画像が表示されません。<BR>
+      <BR>
+      また、この時計の場合は24時間表記ですので、
+      a[フォント名].gif (am) , p[フォント名].gif
+      (pm) は必要ありません。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7"><B><FONT size="+1"><A name="tips_henkou">■ tips / カウント数の変更方法</A></FONT></B></TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">今まで別のカウンタを使っていたので今までのカウント数を継続したい。<BR>
+      そんな方にはログファイルを手直ししていただかねばなりません。<BR>
+      <OL>
+        <LI><A href="#jyunbi">■ログファイルの準備</A>を読んでログファイルを準備し、<A href="#siyouhou">■実際の使用法</A>を読み、カウンタを動作させて、一度ログファイルを書き込んで(フォーマットして)下さい。
+        <LI>とりあえず記録した、そのログファイルをテキストエディタで開いて下さい。
+      </OL>
+      <BR>
+      <CENTER>
+      <TABLE cellpadding="0" cellspacing="0">
+        <TBODY>
+          <TR>
+            <TD>
+            <PRE>                       &lt;注目！&gt;
+                          ↓
+1999/03/22(Mon)#22:38:40#１１#0#0#192.168.1.1
+</PRE>
+            </TD>
+          </TR>
+        </TBODY>
+      </TABLE>
+      </CENTER>
+      <BR>
+      このようになっていると思います(多少の違いは気にしないで下さい)。<BR>
+      <B># で区切られたマス目の3番目の数字です。</B><BR>
+      これが<B>総カウント数</B>を表しています。　半角数字で好きな値に直して下さい。<BR>
+      ちなみに、ログは
+      <BLOCKQUOTE>
+      最終記録日、最終記録時刻、総カウント数、本日カウント数、昨日カウント数、最終記録IP</BLOCKQUOTE>
+      という順にデータが並んでいます。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><A name="sengen"><B><FONT size="+1">■ 宣言</FONT></B></A></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">
+      <B>このプログラムはフリーソフトです。</B><BR>
+      著作権は放棄しません。 プログラム中のコピーライト表記を削除したり、改変しないで下さい。<BR>
+      画面のレイアウトを変えたりだとか、メッセージを変更したくらいで名前を変更されると、作者としては非常に寂しいです(笑)<BR>
+      が、あなたが ぷちカウンタ に原形をとどめない程の大幅な改造を施した場合は問題ありません。<BR>
+      その辺は常識的なさじ加減ということで…(^_^；<BR>
+      <BR>
+      <B><U>正規版の</U>第三者による配布は禁止します。</B> <BR>
+      これは、普及に伴いバージョン管理が困難になってきた実状を踏まえてこうなっています。<BR>
+      CD-ROMなど、私のページ以外の場所で掲載する場合は<B>必ず</B>ご一報下さい。<BR>
+      (ただし、Vectorなど、私が自ら登録した物は除外します)<BR>
+      <BR>
+      <B>自由に改造して使用して下さい。</B>　 改造したものを再配布する事も制限しません。<BR>
+      当然、 ぷちカウンタ のログ記録形式を利用した互換品を開発することもOKです。<BR>
+      ただし、改造版のサポートは改造した方が各自責任を持って行って下さい。<BR>
+      <BR>
+      <B>営利目的の使用・個人向けサイト以外の利用を制限しません。</B><BR>
+      煮るなり焼くなり好きに使って下さい。<BR>
+      <BR>
+      <B>このプログラムを用いた事による一切の損害について、作者は責任を負わないものとします。</B><BR>
+      あなたの責任の範囲において使用して下さい。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="tasya">■ 多謝</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">
+      <A href="http://wakusei.cplaza.ne.jp/twn/cgi-bin/gifcat.txt">GIF画像を連結するライブラリ gifcat.pl</A> は s-hasei 氏に著作権があります。<BR>
+      <BR>
+      外部サーバにおける動作試験には、<A href="http://www2d.biglobe.ne.jp/~gama/cgi/">がまさんの「telnet.cgi」</A>を使用しました。<BR>
+      <BR>
+      これらの有用なプログラムを開発して下さった方々に深く感謝いたします。<BR>
+      また、s-hasei 氏の<A href="http://wakusei.cplaza.ne.jp/twn/">「とほほのWWW入門」</A>、ドッシー秋山氏/キャメル桜田氏共著の<A href="http://p4room.mda.or.jp/">「すぐに使える Perl スクリプト CGI &amp;
+      SSI 快適活用ライブラリ」</A>は制作の上で大変参考になりました。　ありがとうございます。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<BR>
+<CENTER>
+<TABLE width="95%" cellpadding="4" cellspacing="4">
+  <TBODY>
+    <TR>
+      <TD bgcolor="#ffc6c7">
+      <P><B><FONT size="+1"><A name="saigoni">■ 最後に</A></FONT></B></P>
+      </TD>
+    </TR>
+    <TR>
+      <TD bgcolor="#ffdfe0">本ソフトはフリーソフトではありますが、沢山の労力と時間を割いて作られております。<BR>
+      だからといって物質的な見返りはこれっぽっちも期待しておりませんが、皆さんに使ってもらいたい、沢山の反響が欲しい、という自己満足がプログラム製作の原動力になっております。　極力私のサイトへリンクを張ってもらえると作者冥利に尽きます。<BR>
+      <BR>
+      もしよろしければ不可思議絵の具まで「ぷちカウンタ使ってるよ～」と<A href="mailto:fuka@tech.millto.net?Subject=ぷちカウンタ使ってます">メール</A>でも掲示板でも何でも構いませんので教えてあげて下さい。<BR>
+      大抵の場合、返事をお返しすることは出来ないと思いますが、送っていただいたメールには全て目を通しております。<BR>
+      そんな皆様の温かいご声援メールは私の元気の源になっています。　ありがとうございます(^^)<BR>
+      <BR>
+      カウンターGIF作家の皆様、カウンタ用画像を自分用に作ってそのままだったり、一応公開する目的で作ってはみたけれど公開する場所・チャンスがない…そんなデータをお持ちではないですか？<BR>
+      そのまま終わりじゃもったいないですよ☆　皆さんの自慢の作品を私ののページに置いてみませんか？<BR>
+      もしかしたら、誰か使ってくれるかも知れません。<BR>
+      カウンタ用画像を提供して下さる方を募集しています。　もしよかったら<A href="mailto:fuka@tech.millto.net?Subject=カウンタ用画像">メール</A>下さい。</TD>
+    </TR>
+  </TBODY>
+</TABLE>
+</CENTER>
+<HR>
+<DIV align="right">&copy;2000 不可思議絵の具<BR>
+(<A href="http://tech.millto.net/~fuka/">http://tech.millto.net/~fuka/</A>)</DIV>
+</BODY>
+</HTML>
